@@ -41,7 +41,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.view();
-    console.log(this.state.app);
+    const {navigation} = this.props;
+    this.focusListener = navigation.addListener('focus', () => {
+      this.view();
+    });
   }
 
   remove(key) {
