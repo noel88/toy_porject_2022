@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
-  Button,
+  Alert,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
@@ -55,16 +55,16 @@ class Memo extends Component {
   async save() {
     let html = await this.richText.current?.getContentHtml();
     let key = this.getTimeStamp();
-    console.log(AsyncStorage.getItem(key));
     if (await AsyncStorage.getItem(key)) {
-      alert(
+      Alert.alert(
         '기존에 저장되어진 데이터가 있습니다. 오늘은 더이상 저장할수 없습니다.',
       );
       return false;
+    } else {
+      await AsyncStorage.setItem(key, html);
+      Alert.alert('오늘 하루에 Comment를 달았습니다 :) ');
+      this.refs.richText.reset();
     }
-    await AsyncStorage.setItem(key, html);
-    console.log('saveData: ', html);
-    alert('Success');
   }
 
   render() {
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginRight: 10,
   },
-  saveBtn: {},
   title: {
     fontSize: 24,
     fontWeight: 'bold',

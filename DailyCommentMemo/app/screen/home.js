@@ -5,11 +5,22 @@ import {
   Text,
   FlatList,
   ScrollView,
+  Alert,
   TouchableHighlight,
   TouchableOpacity,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import {
+  Avatar,
+  Paragraph,
+  Card,
+  Button,
+  IconButton,
+  useTheme,
+  Switch,
+} from 'react-native-paper';
 
 let list = new Array();
 
@@ -18,12 +29,18 @@ class Home extends Component {
     super(props);
     this.state = {
       app: [],
+      showTheNotice: false,
     };
   }
 
   separator = () => {
     return <View style={{height: 10, backgroundColor: '#fff'}} />;
   };
+
+  show() {
+    this.setState({showTheNotice: true});
+    console.log('공지 감추기 : ', this.state.showTheNotice);
+  }
 
   view() {
     let list = new Array();
@@ -48,28 +65,112 @@ class Home extends Component {
   }
 
   remove(key) {
-    console.log('Delete TODO');
-    AsyncStorage.removeItem(key);
-    setTimeout(() => this.view(), 2001);
-    alert('메모를 삭제합니다.');
+    Alert.alert(
+      '메모를 삭제합니다.',
+      '삭제한 메모는 복구할 수 없습니다.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            console.log('Delete TODO');
+            AsyncStorage.removeItem(key);
+            setTimeout(() => this.view(), 701);
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   }
 
   render() {
+    let dummy = [
+      {
+        title: '2020-09-01',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-02',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-03',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-04',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-05',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-06',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-07',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-08',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-09',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+      {
+        title: '2020-09-10',
+        subTitle: '첫번째 하루를 작성하는 중입니다.',
+      },
+    ];
+    let notice = this.state.showTheNotice;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Home</Text>
+        {!this.state.showTheNotice && (
+          <Card style={styles.card}>
+            <Card.Title
+              title="Daily Comment Memo"
+              subtitle="환영합니다! :)"
+              left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
+              right={(props: any) => (
+                <IconButton
+                  {...props}
+                  icon="close"
+                  onPress={() => {
+                    this.show();
+                  }}
+                />
+              )}
+            />
+            <Card.Content>
+              <Paragraph>
+                메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
+                달아보세요!
+              </Paragraph>
+            </Card.Content>
+          </Card>
+        )}
         <SwipeListView
           useFlatList={true}
           data={this.state.app}
+          // data={dummy}
           keyExtractor={(item, index) => index.toString()}
           renderItem={(rowData, rowMap) => (
             <TouchableHighlight style={styles.rowFront}>
-              <View>
-                <Text style={styles.text}>{rowData.item.title}</Text>
-                <Text style={styles.subText}>
-                  {rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')}
-                </Text>
-              </View>
+              <Card style={styles.card}>
+                <Card.Title
+                  title={rowData.item.title}
+                  subtitle={rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')}
+                />
+              </Card>
             </TouchableHighlight>
           )}
           renderHiddenItem={(rowData, rowMap) => (
@@ -84,7 +185,7 @@ class Home extends Component {
           onRowOpen={(rowKey, rowMap) => {
             setTimeout(() => {
               rowMap[rowKey].closeRow();
-            }, 2000);
+            }, 700);
           }}
           onRowClose={() => console.log('close')}
         />
@@ -148,142 +249,3 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
-
-// import React, {useState} from 'react';
-// import {
-//   StyleSheet,
-//   Text,
-//   TouchableOpacity,
-//   TouchableHighlight,
-//   View,
-// } from 'react-native';
-//
-// import {SwipeListView} from 'react-native-swipe-list-view';
-//
-// export default function SectionList() {
-//   const [listData, setListData] = useState(
-//     Array(5)
-//       .fill('')
-//       .map((_, i) => ({
-//         title: `title${i + 1}`,
-//         data: [
-//           ...Array(5)
-//             .fill('')
-//             .map((_, j) => ({
-//               key: `${i}.${j}`,
-//               text: `item #${j}`,
-//             })),
-//         ],
-//       })),
-//   );
-//
-//   const closeRow = (rowMap, rowKey) => {
-//     if (rowMap[rowKey]) {
-//       rowMap[rowKey].closeRow();
-//     }
-//   };
-//
-//   const deleteRow = (rowMap, rowKey) => {
-//     closeRow(rowMap, rowKey);
-//     const [section] = rowKey.split('.');
-//     const newData = [...listData];
-//     const prevIndex = listData[section].data.findIndex(
-//       (item) => item.key === rowKey,
-//     );
-//     newData[section].data.splice(prevIndex, 1);
-//     setListData(newData);
-//   };
-//
-//   const onRowDidOpen = (rowKey) => {
-//     console.log('This row opened', rowKey);
-//   };
-//
-//   const renderItem = (data) => (
-//     <TouchableHighlight
-//       onPress={() => console.log('You touched me')}
-//       style={styles.rowFront}
-//       underlayColor={'#AAA'}>
-//       <View>
-//         <Text>I am {data.item.text} in a SwipeListView</Text>
-//       </View>
-//     </TouchableHighlight>
-//   );
-//
-//   const renderHiddenItem = (data, rowMap) => (
-//     <View style={styles.rowBack}>
-//       <Text>Left</Text>
-//       <TouchableOpacity
-//         style={[styles.backRightBtn, styles.backRightBtnLeft]}
-//         onPress={() => closeRow(rowMap, data.item.key)}>
-//         <Text style={styles.backTextWhite}>Close</Text>
-//       </TouchableOpacity>
-//       <TouchableOpacity
-//         style={[styles.backRightBtn, styles.backRightBtnRight]}
-//         onPress={() => deleteRow(rowMap, data.item.key)}>
-//         <Text style={styles.backTextWhite}>Delete</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-//
-//   const renderSectionHeader = ({section}) => <Text>{section.title}</Text>;
-//
-//   return (
-//     <View style={styles.container}>
-//       <SwipeListView
-//         useSectionList
-//         sections={listData}
-//         renderItem={renderItem}
-//         renderHiddenItem={renderHiddenItem}
-//         renderSectionHeader={renderSectionHeader}
-//         leftOpenValue={75}
-//         rightOpenValue={-150}
-//         previewRowKey={'0'}
-//         previewOpenValue={-40}
-//         previewOpenDelay={3000}
-//         onRowDidOpen={onRowDidOpen}
-//       />
-//     </View>
-//   );
-// }
-//
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: 'white',
-//     flex: 1,
-//   },
-//   backTextWhite: {
-//     color: '#FFF',
-//   },
-//   rowFront: {
-//     alignItems: 'center',
-//     backgroundColor: '#CCC',
-//     borderBottomColor: 'black',
-//     borderBottomWidth: 1,
-//     justifyContent: 'center',
-//     height: 50,
-//   },
-//   rowBack: {
-//     alignItems: 'center',
-//     backgroundColor: '#DDD',
-//     flex: 1,
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     paddingLeft: 15,
-//   },
-//   backRightBtn: {
-//     alignItems: 'center',
-//     bottom: 0,
-//     justifyContent: 'center',
-//     position: 'absolute',
-//     top: 0,
-//     width: 75,
-//   },
-//   backRightBtnLeft: {
-//     backgroundColor: 'blue',
-//     right: 75,
-//   },
-//   backRightBtnRight: {
-//     backgroundColor: 'red',
-//     right: 0,
-//   },
-// });

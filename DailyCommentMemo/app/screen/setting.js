@@ -7,43 +7,74 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  Button,
+  Alert,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Ionicons';
-import ToggleSwitch from 'toggle-switch-react-native';
-
-//TODO: Theme 설정
-//Description: Light Mode, Dark Mode
-
-//TODO: 데이터 모두 삭제하기
-//Description: AsyncStorage All Delete
+import AsyncStorage from '@react-native-community/async-storage';
+import {
+  Avatar,
+  Paragraph,
+  Card,
+  Button,
+  IconButton,
+  useTheme,
+  Switch,
+} from 'react-native-paper';
 
 class Setting extends Component {
   constructor(props) {
     super(props);
   }
+
+  remove() {
+    Alert.alert(
+      '메모를 전체 삭제합니다.',
+      '삭제한 메모는 복구할 수 없습니다.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            console.log('전체 삭제');
+            AsyncStorage.clear();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Setting</Text>
-        <View style={styles.settingView}>
-          <Text style={styles.subTitle}>Theme 변경</Text>
-          <ToggleSwitch
-            isOn={false}
-            onColor="green"
-            offColor="gray"
-            label="테마를 변경할 수 있습니다."
-            labelStyle={{color: 'black', fontWeight: '900'}}
-            size="large"
-            onToggle={(isOn) => console.log('changed to : ', isOn)}
-          />
-        </View>
-        <View style={styles.settingView}>
-          <View style={styles.row}>
-            <Text style={styles.subTitle}>데이터 전체를 삭제합니다.</Text>
-            <Button title={'삭제'} onPress={() => console.log('전체 삭제')} />
-          </View>
+        <View>
+          <Card style={styles.card}>
+            <Card.Title
+              title="Theme 변경"
+              subtitle="다크 모드로 변경할 수 있습니다."
+              right={() => <Switch value={false} />}
+            />
+          </Card>
+          <Card>
+            <Card.Title
+              title="메모 전체 삭제"
+              subtitle="삭제한 데이터는 복구할 수 없습니다."
+              right={() => (
+                <IconButton
+                  icon="trash-can"
+                  size={45}
+                  onPress={() => {
+                    this.remove();
+                  }}
+                />
+              )}
+            />
+          </Card>
         </View>
       </View>
     );
