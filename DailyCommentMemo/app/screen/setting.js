@@ -1,25 +1,8 @@
-import React, {Component, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {
-  Avatar,
-  Paragraph,
-  Card,
-  Button,
-  IconButton,
-  useTheme,
-  Switch,
-} from 'react-native-paper';
+import {Card, IconButton, Switch} from 'react-native-paper';
 
 class Setting extends Component {
   constructor(props) {

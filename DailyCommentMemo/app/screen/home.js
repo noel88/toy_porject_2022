@@ -1,48 +1,76 @@
-import React, {Component, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  View,
+  Alert,
   StyleSheet,
   Text,
-  FlatList,
-  ScrollView,
-  Alert,
   TouchableHighlight,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-  Avatar,
-  Paragraph,
-  Card,
-  Button,
-  IconButton,
-  useTheme,
-  Switch,
-} from 'react-native-paper';
+import {Avatar, Button, Card, IconButton, Paragraph} from 'react-native-paper';
 
 let list = new Array();
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      app: [],
-      showTheNotice: false,
-    };
-  }
+let dummy = [
+  {
+    title: '2020-09-01',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-02',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-03',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-04',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-05',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-06',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-07',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-08',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-09',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+  {
+    title: '2020-09-10',
+    subTitle: '첫번째 하루를 작성하는 중입니다.',
+  },
+];
 
-  separator = () => {
-    return <View style={{height: 10, backgroundColor: '#fff'}} />;
+export default function Home({navigation}) {
+  const [app, setApp] = useState([]);
+  const [showTheNotice, setShowTheNotice] = useState(false);
+
+  useEffect(() => {
+    view();
+  });
+
+  const show = () => {
+    setShowTheNotice(true);
+    console.log('공지 감추기 : ', showTheNotice);
   };
 
-  show() {
-    this.setState({showTheNotice: true});
-    console.log('공지 감추기 : ', this.state.showTheNotice);
-  }
-
-  view() {
+  const view = () => {
     let list = new Array();
     AsyncStorage.getAllKeys((err, keys) => {
       AsyncStorage.multiGet(keys, (err, stores) => {
@@ -51,20 +79,12 @@ class Home extends Component {
           let value = store[i][1];
           list.push({title: key, subTitle: value});
         });
-        this.setState({app: list});
+        setApp(list);
       });
     });
-  }
+  };
 
-  componentDidMount() {
-    this.view();
-    const {navigation} = this.props;
-    this.focusListener = navigation.addListener('focus', () => {
-      this.view();
-    });
-  }
-
-  remove(key) {
+  const remove = (key) => {
     Alert.alert(
       '메모를 삭제합니다.',
       '삭제한 메모는 복구할 수 없습니다.',
@@ -79,119 +99,83 @@ class Home extends Component {
           onPress: () => {
             console.log('Delete TODO');
             AsyncStorage.removeItem(key);
-            setTimeout(() => this.view(), 701);
           },
         },
       ],
       {cancelable: false},
     );
-  }
+  };
 
-  render() {
-    let dummy = [
-      {
-        title: '2020-09-01',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-02',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-03',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-04',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-05',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-06',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-07',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-08',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-09',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-      {
-        title: '2020-09-10',
-        subTitle: '첫번째 하루를 작성하는 중입니다.',
-      },
-    ];
-    let notice = this.state.showTheNotice;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Home</Text>
-        {!this.state.showTheNotice && (
-          <Card style={styles.card}>
-            <Card.Title
-              title="Daily Comment Memo"
-              subtitle="환영합니다! :)"
-              left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
-              right={(props: any) => (
-                <IconButton
-                  {...props}
-                  icon="close"
-                  onPress={() => {
-                    this.show();
-                  }}
-                />
-              )}
-            />
-            <Card.Content>
-              <Paragraph>
-                메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
-                달아보세요!
-              </Paragraph>
-            </Card.Content>
-          </Card>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Home</Text>
+      {!showTheNotice && (
+        <Card style={styles.card}>
+          <Card.Title
+            title="Daily Comment Comment"
+            subtitle="환영합니다! :)"
+            left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
+            right={(props: any) => (
+              <IconButton
+                {...props}
+                icon="close"
+                onPress={() => {
+                  show();
+                }}
+              />
+            )}
+          />
+          <Card.Content>
+            <Paragraph>
+              메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
+              달아보세요!
+            </Paragraph>
+          </Card.Content>
+        </Card>
+      )}
+      <SwipeListView
+        useFlatList={true}
+        data={app}
+        // data={dummy}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={(rowData, rowMap) => (
+          <TouchableHighlight
+            style={styles.rowFront}
+            onPress={() =>
+              navigation.navigate('Details', {
+                key: rowData.item.title,
+              })
+            }>
+            <Card style={styles.card}>
+              <Card.Title
+                title={rowData.item.title}
+                subtitle={
+                  rowData.item.subTitle
+                    ? rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')
+                    : ''
+                }
+              />
+            </Card>
+          </TouchableHighlight>
         )}
-        <SwipeListView
-          useFlatList={true}
-          data={this.state.app}
-          // data={dummy}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={(rowData, rowMap) => (
-            <TouchableHighlight style={styles.rowFront}>
-              <Card style={styles.card}>
-                <Card.Title
-                  title={rowData.item.title}
-                  subtitle={rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')}
-                />
-              </Card>
-            </TouchableHighlight>
-          )}
-          renderHiddenItem={(rowData, rowMap) => (
-            <TouchableOpacity
-              onPress={() => this.remove(rowData.item.title)}
-              style={[styles.backRightBtn, styles.backRightBtnLeft]}>
-              <Text style={styles.backTextWhite}>Delete</Text>
-            </TouchableOpacity>
-          )}
-          leftOpenValue={0}
-          rightOpenValue={-70}
-          onRowOpen={(rowKey, rowMap) => {
-            setTimeout(() => {
-              rowMap[rowKey].closeRow();
-            }, 700);
-          }}
-          onRowClose={() => console.log('close')}
-        />
-      </View>
-    );
-  }
+        renderHiddenItem={(rowData, rowMap) => (
+          <TouchableOpacity
+            onPress={() => remove(rowData.item.title)}
+            style={[styles.backRightBtn, styles.backRightBtnLeft]}>
+            <Text style={styles.backTextWhite}>Delete</Text>
+          </TouchableOpacity>
+        )}
+        leftOpenValue={0}
+        rightOpenValue={-70}
+        onRowOpen={(rowKey, rowMap) => {
+          setTimeout(() => {
+            rowMap[rowKey] ? rowMap[rowKey].closeRow() : null;
+          }, 700);
+        }}
+        onRowClose={() => console.log('close')}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -211,8 +195,6 @@ const styles = StyleSheet.create({
   },
   rowFront: {
     backgroundColor: '#fff',
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
     justifyContent: 'center',
     height: 70,
   },
@@ -247,5 +229,3 @@ const styles = StyleSheet.create({
     right: 0,
   },
 });
-
-export default Home;

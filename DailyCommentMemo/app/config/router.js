@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screen/home';
-import Memo from '../screen/memo';
+import Comment from '../screen/comment';
 import Setting from '../screen/setting';
 
 const Tab = createBottomTabNavigator();
@@ -36,8 +36,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Memo"
-        component={Memo}
+        name="Comment"
+        component={Comment}
         options={{
           tabBarIcon: ({focused, color}) => (
             <Icon
