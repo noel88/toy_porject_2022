@@ -5,6 +5,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableOpacity,
+  SafeAreaView,
   View,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
@@ -108,72 +109,74 @@ export default function Home({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-      {!showTheNotice && (
-        <Card style={styles.card}>
-          <Card.Title
-            title="Daily Comment Comment"
-            subtitle="환영합니다! :)"
-            left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
-            right={(props: any) => (
-              <IconButton
-                {...props}
-                icon="close"
-                onPress={() => {
-                  show();
-                }}
-              />
-            )}
-          />
-          <Card.Content>
-            <Paragraph>
-              메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
-              달아보세요!
-            </Paragraph>
-          </Card.Content>
-        </Card>
-      )}
-      <SwipeListView
-        useFlatList={true}
-        data={app}
-        // data={dummy}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={(rowData, rowMap) => (
-          <TouchableHighlight
-            style={styles.rowFront}
-            onPress={() =>
-              navigation.navigate('Details', {
-                key: rowData.item.title,
-              })
-            }>
-            <Card style={styles.card}>
-              <Card.Title
-                title={rowData.item.title}
-                subtitle={
-                  rowData.item.subTitle
-                    ? rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')
-                    : ''
-                }
-              />
-            </Card>
-          </TouchableHighlight>
+      <SafeAreaView>
+        <Text style={styles.title}>Home</Text>
+        {!showTheNotice && (
+          <Card style={styles.card}>
+            <Card.Title
+              title="Daily Comment Comment"
+              subtitle="환영합니다! :)"
+              left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
+              right={(props: any) => (
+                <IconButton
+                  {...props}
+                  icon="close"
+                  onPress={() => {
+                    show();
+                  }}
+                />
+              )}
+            />
+            <Card.Content>
+              <Paragraph>
+                메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
+                달아보세요!
+              </Paragraph>
+            </Card.Content>
+          </Card>
         )}
-        renderHiddenItem={(rowData, rowMap) => (
-          <TouchableOpacity
-            onPress={() => remove(rowData.item.title)}
-            style={[styles.backRightBtn, styles.backRightBtnLeft]}>
-            <Text style={styles.backTextWhite}>Delete</Text>
-          </TouchableOpacity>
-        )}
-        leftOpenValue={0}
-        rightOpenValue={-70}
-        onRowOpen={(rowKey, rowMap) => {
-          setTimeout(() => {
-            rowMap[rowKey] ? rowMap[rowKey].closeRow() : null;
-          }, 700);
-        }}
-        onRowClose={() => console.log('close')}
-      />
+        <SwipeListView
+          useFlatList={true}
+          data={app}
+          // data={dummy}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={(rowData, rowMap) => (
+            <TouchableHighlight
+              style={styles.rowFront}
+              onPress={() =>
+                navigation.navigate('Details', {
+                  key: rowData.item.title,
+                })
+              }>
+              <Card style={styles.card}>
+                <Card.Title
+                  title={rowData.item.title}
+                  subtitle={
+                    rowData.item.subTitle
+                      ? rowData.item.subTitle.replace(/(<([^>]+)>)/gi, ' ')
+                      : ''
+                  }
+                />
+              </Card>
+            </TouchableHighlight>
+          )}
+          renderHiddenItem={(rowData, rowMap) => (
+            <TouchableOpacity
+              onPress={() => remove(rowData.item.title)}
+              style={[styles.backRightBtn, styles.backRightBtnLeft]}>
+              <Text style={styles.backTextWhite}>Delete</Text>
+            </TouchableOpacity>
+          )}
+          leftOpenValue={0}
+          rightOpenValue={-70}
+          onRowOpen={(rowKey, rowMap) => {
+            setTimeout(() => {
+              rowMap[rowKey] ? rowMap[rowKey].closeRow() : null;
+            }, 700);
+          }}
+          onRowClose={() => console.log('close')}
+        />
+      </SafeAreaView>
     </View>
   );
 }

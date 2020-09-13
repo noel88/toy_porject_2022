@@ -6,6 +6,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  SafeAreaView,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Editor from './editor';
@@ -61,16 +62,18 @@ export default function Comment() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <View style={styles.iconContainer}>
-        <Text style={styles.title}>Memo</Text>
-        <TouchableWithoutFeedback
-          style={{marginRight: 15}}
-          onPress={() => save()}>
-          <Icon color="gray" size={30} name="content-save-outline" />
-        </TouchableWithoutFeedback>
-      </View>
-      <Editor content={richText} />
+      <SafeAreaView>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.iconContainer}>
+          <Text style={styles.title}>Memo</Text>
+          <TouchableWithoutFeedback
+            style={{marginRight: 15}}
+            onPress={() => save()}>
+            <Icon color="gray" size={30} name="content-save-outline" />
+          </TouchableWithoutFeedback>
+        </View>
+        <Editor content={richText} />
+      </SafeAreaView>
     </View>
   );
 }
