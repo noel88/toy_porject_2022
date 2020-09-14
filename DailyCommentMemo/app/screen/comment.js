@@ -1,12 +1,13 @@
-import React, {Component, createRef, useEffect, useState} from 'react';
+import React, {createRef, useEffect, useState} from 'react';
 import {
   Alert,
+  Keyboard,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
-  SafeAreaView,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Editor from './editor';
@@ -51,19 +52,19 @@ export default function Comment() {
       Alert.alert(
         '기존에 저장되어진 데이터가 있습니다. 오늘은 더이상 저장할수 없습니다.',
       );
+      Keyboard.dismiss();
       return false;
     } else {
       await AsyncStorage.setItem(key, html);
       Alert.alert('오늘 하루에 Comment를 달았습니다 :)');
     }
     richText.current.setContentHTML('');
-    // Keyboard.dismiss();
   };
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <StatusBar barStyle="dark-content" />
         <View style={styles.iconContainer}>
           <Text style={styles.title}>Memo</Text>
           <TouchableWithoutFeedback
@@ -72,8 +73,8 @@ export default function Comment() {
             <Icon color="gray" size={30} name="content-save-outline" />
           </TouchableWithoutFeedback>
         </View>
-        <Editor content={richText} />
       </SafeAreaView>
+      <Editor content={richText} loaded={null} />
     </View>
   );
 }

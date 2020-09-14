@@ -1,11 +1,10 @@
-import React, {createRef, useRef, useState} from 'react';
+import React from 'react';
 import {
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
-  View,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {
   actions,
@@ -18,8 +17,8 @@ const strikethrough = require('../assets/strikethrough.png');
 
 export default function Editor({content, loaded}) {
   return (
-    <View>
-      <ScrollView style={styles.scroll} keyboardDismissMode={'none'}>
+    <>
+      <ScrollView>
         <RichEditor
           ref={content}
           placeholder={'하단의 에디터를 이용하여 오늘 하루 메모를 작성하세요😀'}
@@ -53,7 +52,7 @@ export default function Editor({content, loaded}) {
           }}
         />
       </KeyboardAvoidingView>
-    </View>
+    </>
   );
 }
 
