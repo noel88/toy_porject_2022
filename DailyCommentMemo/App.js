@@ -31,13 +31,6 @@ const Stacks = () => {
         component={Details}
         options={{
           headerTitle: 'Details',
-          headerRight: () => (
-            <Button
-              icon="content-save-outline"
-              mode="text"
-              onPress={() => console.log('Pressed')}
-            />
-          ),
         }}
       />
     </Stack.Navigator>

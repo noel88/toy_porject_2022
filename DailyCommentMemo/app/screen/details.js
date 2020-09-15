@@ -2,15 +2,18 @@ import React, {createRef, useEffect, useState} from 'react';
 import {Alert, StatusBar, StyleSheet, View, Keyboard} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Editor from './editor';
+import {Button} from 'react-native-paper';
 
-export default function Details({route, navigation}) {
+export default function Details({route, navigation: {goBack}}) {
   const {key} = route.params;
   const [data, setData] = useState('');
 
   const [richText, setRichText] = useState(() => createRef());
 
   useEffect(() => {
-    loadedData();
+    loadedData().then((r) => {
+      return r;
+    });
   });
 
   const loadedData = async () => {
@@ -23,15 +26,17 @@ export default function Details({route, navigation}) {
     let html = await richText.current?.getContentHtml();
     console.log('Save : ', html);
     await AsyncStorage.setItem(key, html);
-    Alert.alert('오늘 하루의 Comment를 수정했습니다 :)');
-    richText.current.setContentHTML('');
-    Keyboard.dismiss();
+    Alert.alert('수정 완료 :)');
+    goBack();
   };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <Editor content={richText} loaded={data} />
+      <Button mode="outlined" color={'black'} onPress={() => update()}>
+        Comment의 내용을 수정합니다 :)
+      </Button>
     </View>
   );
 }
