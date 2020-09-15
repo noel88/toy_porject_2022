@@ -172,7 +172,7 @@ export default function Home({navigation}) {
           onRowOpen={(rowKey, rowMap) => {
             setTimeout(() => {
               rowMap[rowKey] ? rowMap[rowKey].closeRow() : null;
-            }, 700);
+            }, 2500);
           }}
           onRowClose={() => console.log('close')}
         />
