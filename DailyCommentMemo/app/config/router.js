@@ -28,7 +28,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({focused, color}) => (
             <Icon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'view-list' : 'view-list-outline'}
               size={25}
               color={color}
             />
@@ -41,8 +41,8 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({focused, color}) => (
             <Icon
-              name={focused ? 'plus-thick' : 'plus-outline'}
-              size={30}
+              name={focused ? 'pencil-plus' : 'pencil-plus-outline'}
+              size={25}
               color={color}
             />
           ),
