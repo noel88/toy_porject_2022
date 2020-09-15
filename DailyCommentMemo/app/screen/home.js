@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   View,
+  StatusBar,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -18,44 +19,45 @@ let list = new Array();
 let dummy = [
   {
     title: '2020-09-01',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
+    subTitle:
+      '첫번째 하루를 작성한다, 오늘은 너무 즐거운 날이다. 항상 이렇게만 행복했음 좋겠다.🐥',
   },
   {
     title: '2020-09-02',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
+    subTitle: '매사에 늘 감사하자. ',
   },
   {
     title: '2020-09-03',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
+    subTitle: '오늘 해야할 일 [고양이랑 놀기, 고양이 화장실 청소하기]',
   },
   {
     title: '2020-09-04',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
+    subTitle: '쇼핑목록 정리해서 장바구니에 꼭 넣어놓기!!!',
   },
-  {
-    title: '2020-09-05',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
-  {
-    title: '2020-09-06',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
-  {
-    title: '2020-09-07',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
-  {
-    title: '2020-09-08',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
-  {
-    title: '2020-09-09',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
-  {
-    title: '2020-09-10',
-    subTitle: '첫번째 하루를 작성하는 중입니다.',
-  },
+  // {
+  //   title: '2020-09-05',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
+  // {
+  //   title: '2020-09-06',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
+  // {
+  //   title: '2020-09-07',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
+  // {
+  //   title: '2020-09-08',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
+  // {
+  //   title: '2020-09-09',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
+  // {
+  //   title: '2020-09-10',
+  //   subTitle: '첫번째 하루를 작성하는 중입니다.',
+  // },
 ];
 
 export default function Home({navigation}) {
@@ -68,7 +70,6 @@ export default function Home({navigation}) {
 
   const show = () => {
     setShowTheNotice(true);
-    console.log('공지 감추기 : ', showTheNotice);
   };
 
   const view = () => {
@@ -92,13 +93,11 @@ export default function Home({navigation}) {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {
           text: 'OK',
           onPress: () => {
-            console.log('Delete TODO');
             AsyncStorage.removeItem(key);
           },
         },
@@ -109,14 +108,15 @@ export default function Home({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <SafeAreaView>
-        <Text style={styles.title}>Home</Text>
+        <Text style={styles.title}>One Day One Record</Text>
         {!showTheNotice && (
           <Card style={styles.card}>
             <Card.Title
-              title="Daily Comment Comment"
-              subtitle="환영합니다! :)"
-              left={(props: any) => <Avatar.Icon {...props} icon="folder" />}
+              title="하루 하나씩"
+              subtitle="환영합니다! 🐤 🐣 🐥"
+              left={(props: any) => <Avatar.Icon {...props} icon="file" />}
               right={(props: any) => (
                 <IconButton
                   {...props}
@@ -129,8 +129,9 @@ export default function Home({navigation}) {
             />
             <Card.Content>
               <Paragraph>
-                메모 어플은 하루에 한번씩만 작성할 수 있습니다. 하루의 Comment를
-                달아보세요!
+                🌜 "하루 하나씩"은 하루에 한번씩만 작성할 수 있습니다. {'\n'}
+                🌜 하루의 기록을 나만의 스타일로 작성하세요! {'\n'}👆 기록
+                클릭시 : 상세보기 {'\n'}❌ 기록 왼쪽으로 밀기 : 삭제
               </Paragraph>
             </Card.Content>
           </Card>
@@ -164,7 +165,7 @@ export default function Home({navigation}) {
             <TouchableOpacity
               onPress={() => remove(rowData.item.title)}
               style={[styles.backRightBtn, styles.backRightBtnLeft]}>
-              <Text style={styles.backTextWhite}>Delete</Text>
+              <Text style={styles.backTextWhite}>삭제</Text>
             </TouchableOpacity>
           )}
           leftOpenValue={0}
@@ -174,7 +175,6 @@ export default function Home({navigation}) {
               rowMap[rowKey] ? rowMap[rowKey].closeRow() : null;
             }, 2500);
           }}
-          onRowClose={() => console.log('close')}
         />
       </SafeAreaView>
     </View>
@@ -187,14 +187,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#000',
     margin: 10,
     marginLeft: 15,
   },
   backTextWhite: {
-    color: '#FFF',
+    color: '#000',
   },
   rowFront: {
     backgroundColor: '#fff',
@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
   },
   rowBack: {
     alignItems: 'center',
-    backgroundColor: '#DDD',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -228,7 +227,7 @@ const styles = StyleSheet.create({
     width: 70,
   },
   backRightBtnLeft: {
-    backgroundColor: 'lightgray',
+    backgroundColor: '#f55858',
     right: 0,
   },
 });

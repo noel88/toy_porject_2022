@@ -16,7 +16,7 @@ import {Button} from 'react-native-paper';
 
 const strikethrough = require('../assets/strikethrough.png');
 
-export default function Comment() {
+export default function Comment({navigation}) {
   const [richText, setRichText] = useState(() => createRef());
 
   useEffect(() => {
@@ -50,24 +50,22 @@ export default function Comment() {
     let html = await richText.current?.getContentHtml();
     let key = getTimeStamp();
     if (await AsyncStorage.getItem(key)) {
-      Alert.alert(
-        '기존에 저장되어진 데이터가 있습니다. 오늘은 더이상 저장할수 없습니다.',
-      );
-      Keyboard.dismiss();
+      Alert.alert('오늘은 더 이상 기록을 저장할수 없어요 😅😂🤣 ');
       return false;
     } else {
       await AsyncStorage.setItem(key, html);
-      Alert.alert('오늘 하루에 Comment를 달았습니다 :)');
+      Alert.alert('하루 하나씩 😉😊🙂🙃');
     }
     richText.current.setContentHTML('');
+    navigation.navigate('Home');
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView>
         <View style={styles.iconContainer}>
-          <Text style={styles.title}>Memo</Text>
+          <Text style={styles.title}>Today is.... Record</Text>
           {/*<TouchableWithoutFeedback*/}
           {/*  style={{marginRight: 15}}*/}
           {/*  onPress={() => save()}>*/}
@@ -77,7 +75,7 @@ export default function Comment() {
       </SafeAreaView>
       <Editor content={richText} loaded={null} />
       <Button mode="outlined" color={'black'} onPress={() => save()}>
-        Comment를 등록 합니다 :)
+        오늘 하루의 기록을 등록할래요 🙃
       </Button>
     </View>
   );
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#000',
     margin: 10,

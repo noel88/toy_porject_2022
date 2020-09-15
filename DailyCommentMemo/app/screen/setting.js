@@ -11,18 +11,16 @@ class Setting extends Component {
 
   remove() {
     Alert.alert(
-      '메모를 전체 삭제합니다.',
-      '삭제한 메모는 복구할 수 없습니다.',
+      '⚠ 기록을 전체 삭제합니다.',
+      '삭제한 기록은 복구할 수 없습니다.',
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {
           text: 'OK',
           onPress: () => {
-            console.log('전체 삭제');
             AsyncStorage.clear();
           },
         },
@@ -37,21 +35,22 @@ class Setting extends Component {
         <SafeAreaView>
           <Text style={styles.title}>Setting</Text>
           <View>
-            <Card style={styles.card}>
-              <Card.Title
-                title="Theme 변경"
-                subtitle="다크 모드로 변경할 수 있습니다."
-                right={() => <Switch value={false} />}
-              />
-            </Card>
+            {/*<Card style={styles.card}>*/}
+            {/*  <Card.Title*/}
+            {/*    title="Theme 변경"*/}
+            {/*    subtitle="다크 모드로 변경할 수 있습니다."*/}
+            {/*    right={() => <Switch value={false} />}*/}
+            {/*  />*/}
+            {/*</Card>*/}
             <Card>
               <Card.Title
-                title="메모 전체 삭제"
-                subtitle="삭제한 데이터는 복구할 수 없습니다."
+                title="전체 삭제"
+                subtitle="삭제한 데이터는 복구할 수 없어요 😿 "
                 right={() => (
                   <IconButton
                     icon="trash-can"
-                    size={45}
+                    size={35}
+                    color={'red'}
                     onPress={() => {
                       this.remove();
                     }}
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#000',
     margin: 10,

@@ -30,7 +30,10 @@ const Stacks = () => {
         name="Details"
         component={Details}
         options={{
-          headerTitle: 'Details',
+          headerTitle: 'One Record.. 🌜',
+          headerTitleStyle: {
+            fontSize: 15,
+          },
         }}
       />
     </Stack.Navigator>

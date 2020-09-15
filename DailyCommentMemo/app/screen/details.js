@@ -18,24 +18,22 @@ export default function Details({route, navigation: {goBack}}) {
 
   const loadedData = async () => {
     const load = await AsyncStorage.getItem(key);
-    console.log('data', load);
     setData(load);
   };
 
   const update = async () => {
     let html = await richText.current?.getContentHtml();
-    console.log('Save : ', html);
     await AsyncStorage.setItem(key, html);
-    Alert.alert('수정 완료 :)');
+    Alert.alert('수정 완료 🙃');
     goBack();
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Editor content={richText} loaded={data} />
       <Button mode="outlined" color={'black'} onPress={() => update()}>
-        Comment의 내용을 수정합니다 :)
+        오늘 하루의 기록을 수정할래요 🙃
       </Button>
     </View>
   );

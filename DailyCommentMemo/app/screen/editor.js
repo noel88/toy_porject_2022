@@ -21,7 +21,9 @@ export default function Editor({content, loaded}) {
       <ScrollView>
         <RichEditor
           ref={content}
-          placeholder={'하단의 에디터를 이용하여 오늘 하루 메모를 작성하세요😀'}
+          placeholder={
+            '하단의 에디터를 이용하여 오늘 하루의 기록을 작성하세요😀'
+          }
           initialContentHTML={loaded}
         />
       </ScrollView>
