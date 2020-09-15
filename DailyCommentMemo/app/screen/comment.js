@@ -12,6 +12,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import Editor from './editor';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Button} from 'react-native-paper';
 
 const strikethrough = require('../assets/strikethrough.png');
 
@@ -67,14 +68,17 @@ export default function Comment() {
       <SafeAreaView>
         <View style={styles.iconContainer}>
           <Text style={styles.title}>Memo</Text>
-          <TouchableWithoutFeedback
-            style={{marginRight: 15}}
-            onPress={() => save()}>
-            <Icon color="gray" size={30} name="content-save-outline" />
-          </TouchableWithoutFeedback>
+          {/*<TouchableWithoutFeedback*/}
+          {/*  style={{marginRight: 15}}*/}
+          {/*  onPress={() => save()}>*/}
+          {/*  <Icon color="gray" size={30} name="content-save-outline" />*/}
+          {/*</TouchableWithoutFeedback>*/}
         </View>
       </SafeAreaView>
       <Editor content={richText} loaded={null} />
+      <Button mode="outlined" color={'black'} onPress={() => save()}>
+        Comment를 등록 합니다 :)
+      </Button>
     </View>
   );
 }
