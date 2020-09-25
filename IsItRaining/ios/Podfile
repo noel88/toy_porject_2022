@@ -8,6 +8,8 @@ target 'IsItRaining' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
+
   target 'IsItRainingTests' do
     inherit! :complete
     # Pods for testing
