@@ -8,13 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import GeoLocationWeather from './geoLocationWeather';
-import BackgroundTask from 'react-native-background-task';
-
-BackgroundTask.define(async () => {
-  GeoLocationWeather();
-  console.log('Background');
-});
+// import BackgroundTask from 'react-native-background-task';
 
 const permissions = async () => {
   const grantedLocation = await PermissionsAndroid.request(
@@ -36,11 +30,11 @@ const permissions = async () => {
 };
 
 const Main = ({navigation}) => {
-  useEffect(() => {
-    BackgroundTask.schedule({
-      period: 1800, // 30분
-    });
-  }, []);
+  // useEffect(() => {
+  //   BackgroundTask.schedule({
+  //     period: 1800, // 30분
+  //   });
+  // }, []);
 
   return (
     <Onboarding
