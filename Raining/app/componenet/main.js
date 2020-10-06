@@ -8,11 +8,19 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-// import BackgroundTask from 'react-native-background-task';
 
 const permissions = async () => {
   const grantedLocation = await PermissionsAndroid.request(
-    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    // PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    // {
+    //   title: 'Location',
+    //   message: 'Location 엑세스 허용하시겠습니까?',
+    //   buttonNeutral: '나중에 물어보기',
+    //   buttonNegative: '아뇨',
+    //   buttonPositive: '예',
+    // },
+
+    PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
     {
       title: 'Location',
       message: 'Location 엑세스 허용하시겠습니까?',
@@ -30,12 +38,6 @@ const permissions = async () => {
 };
 
 const Main = ({navigation}) => {
-  // useEffect(() => {
-  //   BackgroundTask.schedule({
-  //     period: 1800, // 30분
-  //   });
-  // }, []);
-
   return (
     <Onboarding
       onDone={() => navigation.navigate('Details')}
