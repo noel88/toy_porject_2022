@@ -6,29 +6,39 @@ import {
   Button,
   Alert,
   View,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 const permissions = async () => {
-  const grantedLocation = await PermissionsAndroid.request(
-    // PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    // {
-    //   title: 'Location',
-    //   message: 'Location 엑세스 허용하시겠습니까?',
-    //   buttonNeutral: '나중에 물어보기',
-    //   buttonNegative: '아뇨',
-    //   buttonPositive: '예',
-    // },
+  let grantedLocation;
+  if (Platform.Version >= 29) {
+    console.log('android sdk version 29 이상');
 
-    PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
-    {
-      title: 'Location',
-      message: 'Location 엑세스 허용하시겠습니까?',
-      buttonNeutral: '나중에 물어보기',
-      buttonNegative: '아뇨',
-      buttonPositive: '예',
-    },
-  );
+    grantedLocation = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
+      {
+        title: '백그라운드에서 현재 위치를 확인합니다.',
+        message: '엑세스를 허용하시겠습니까?',
+        buttonNeutral: '나중에 물어보기',
+        buttonNegative: '아뇨',
+        buttonPositive: '예',
+      },
+    );
+  } else {
+    console.log('android sdk version 29 미만');
+
+    grantedLocation = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: '현재 위치를 확인합니다.',
+        message: '엑세스를 허용하시겠습니까?',
+        buttonNeutral: '나중에 물어보기',
+        buttonNegative: '아뇨',
+        buttonPositive: '예',
+      },
+    );
+  }
 
   if (grantedLocation === PermissionsAndroid.RESULTS.GRANTED) {
     console.log('location permission');
@@ -41,7 +51,7 @@ const Main = ({navigation}) => {
   return (
     <Onboarding
       onDone={() => navigation.navigate('Details')}
-      onSkip={() => console.log('skip')}
+      onSkip={() => navigation.navigate('Details')}
       pages={[
         {
           backgroundColor: 'lightgray',

@@ -78,7 +78,9 @@ const NotiTimeSetting = () => {
 
   let backgroundSchedule = {
     jobKey: 'today',
-    period: 432000000,
+    allowExecutionInForeground: true,
+    allowWhileIdle: true,
+    period: 216000000,
   };
 
   BackgroundJob.schedule(backgroundSchedule)
