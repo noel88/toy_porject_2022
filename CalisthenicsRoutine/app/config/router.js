@@ -1,9 +1,8 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screen/home';
-import CalisthenicsRoutine from '../screen/CalisthenicsRoutine';
 import Setting from '../screen/setting';
 
 const Tab = createBottomTabNavigator();
@@ -27,21 +26,8 @@ const Tabs = () => {
         component={Home}
         options={{
           tabBarIcon: ({focused, color}) => (
-            <Icon
-              name={focused ? 'view-list' : 'view-list-outline'}
-              size={25}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Comment"
-        component={CalisthenicsRoutine}
-        options={{
-          tabBarIcon: ({focused, color}) => (
-            <Icon
-              name={focused ? 'pencil-plus' : 'pencil-plus-outline'}
+            <Icon2
+              name={focused ? 'fire' : 'fire-alt'}
               size={25}
               color={color}
             />
@@ -53,7 +39,7 @@ const Tabs = () => {
         component={Setting}
         options={{
           tabBarIcon: ({focused, color}) => (
-            <Icon2
+            <Icon
               name={focused ? 'md-settings-sharp' : 'md-settings-outline'}
               size={25}
               color={color}
