@@ -1,78 +1,91 @@
+import {StyleSheet, Text, View, Button} from 'react-native';
+import BtnComponent from './btnComponent';
+import CountComponent from './countComponent';
 import React, {Component} from 'react';
-import {
-  Dimensions,
-  Image,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Card} from 'react-native-shadow-cards';
-import PushUpComponent from '../components/pushUpComponent';
-import PullUpComponent from '../components/pullUpComponent';
 
-export default class Home extends Component {
+export default class PullUpComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isStart: false,
-      pushUpComplete: 'start',
-      pullUpComplete: 'padding',
+      count: 1, // Set
+      min: 10, // 쉬는 시간
+      time: 10, // 초기 횟수 정하기
+      arr: this.countAsc,
+      set: 10, // 시작 Set 횟수
+      isCount: true,
     };
   }
 
-  pushUpComplete = (eventValue, eventValue2) => {
-    this.setState({pushUpComplete: eventValue});
-    this.setState({pullUpComplete: eventValue2});
+  countAsc = () => {
+    let arr = [];
+    for (let i = 0; i < this.state.time; i++) {
+      arr[i] = i;
+    }
+    return arr;
   };
 
-  pullUpComplete = (eventValue) => {
-    this.setState({pullUpComplete: eventValue});
+  countDesc = () => {
+    let arr = [];
+    for (let i = this.state.set; i > 0; i++) {
+      arr[i] = i;
+    }
+    this.setState({arr: arr});
+  };
+
+  onCompleteAction = (bool) => {
+    this.setState({isStart: bool});
+    if (!bool) {
+      this.setState({count: ++this.state.count});
+      if (this.state.count <= 20) {
+        this.setState({set: this.state.arr()[this.state.count - 1]});
+      } else {
+        this.setState({isCount: false});
+        this.childComplete('end');
+      }
+    }
+  };
+
+  childComplete = (eventValue) => {
+    this.props.pullUpComplete(eventValue);
   };
 
   render() {
-    let {height, width} = Dimensions.get('window');
     return (
-      <View style={styles.mainContainer}>
-        <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <View style={styles.contentContainer}>
-            <View style={styles.item1}>
-              <Text style={styles.leftTitle}>Calisthenics</Text>
-            </View>
-            <View style={styles.item2}>
-              <Icon
-                style={styles.rightTitle}
-                name={'calendar-month'}
-                size={30}
-                color={'black'}
-              />
-            </View>
-          </View>
+      <View style={styles.screen}>
+        {this.state.isCount && (
           <View>
-            <Image
-              style={{width: width, height: 200}}
-              source={
-                this.state.pushUpComplete === 'start'
-                  ? require('../assets/push-up.jpg')
-                  : require('../assets/pull-up.jpg')
-              }
-            />
+            <Text style={styles.text}>
+              Set {this.state.count}, {this.state.set}회
+            </Text>
           </View>
-          <View style={styles.screen2}>
-            <Card style={{padding: 10, margin: 10, height: 50}}>
-              <Text style={styles.text}>상체 1일차</Text>
-            </Card>
+        )}
+        {!this.state.isCount && (
+          <View>
+            <Text style={styles.text}>운동 종료</Text>
           </View>
-        </SafeAreaView>
-        {this.state.pushUpComplete === 'start' && (
-          <PushUpComponent pushUpComplete={this.pushUpComplete} />
         )}
-        {this.state.pullUpComplete === 'start' && (
-          <PullUpComponent pullUpComplete={this.pullUpComplete} />
+        {!this.state.isStart && (
+          <BtnComponent onCompleteAction={this.onCompleteAction} />
         )}
+        {this.state.isStart && (
+          <CountComponent
+            playing={this.state.isStart}
+            min={10}
+            count={this.state.count}
+            onCompleteAction={this.onCompleteAction}
+          />
+        )}
+        <Card style={{margin: 10}}>
+          <Button
+            onPress={() => {
+              this.countDesc();
+            }}
+            title="중도 포기"
+            color="#841584"
+          />
+        </Card>
       </View>
     );
   }
