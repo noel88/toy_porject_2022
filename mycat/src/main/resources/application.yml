@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    sql-script-encoding: UTF-8
+  jpa:
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+        generate_statistics: false
+        temp:
+          use_jdbc_metadata_defaults: false
+    generate-ddl: true
+    show-sql: true
+server:
+  port: 9090
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mycat?
+    username: postgres
+    password: admin
+    platform: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+  logging:
+    level:
+      org.springframework.data: debug
