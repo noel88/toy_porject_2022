@@ -1,12 +1,11 @@
 package com.ntoday.mycat.api;
 
 
-import com.ntoday.mycat.domain.repository.CatRepository;
 import com.ntoday.mycat.dto.CatDTO;
+import com.ntoday.mycat.service.specific.CatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/cat")
 public class CatApi {
 
-    private final CatRepository catRepository;
-
+    private final CatService service;
 
     @GetMapping()
     public String getCat() {
@@ -23,8 +21,9 @@ public class CatApi {
     }
 
     @PostMapping()
-    public ResponseEntity CatSave(@RequestBody CatDTO catDTO) {
+    public ResponseEntity<Object> CatSave(@RequestBody CatDTO catDTO) {
+        service.save(catDTO);
         System.out.println("catDTO" + catDTO.toString());
-        return new ResponseEntity("created", HttpStatus.CREATED);
+        return new ResponseEntity<>("created", HttpStatus.CREATED);
     }
 }
