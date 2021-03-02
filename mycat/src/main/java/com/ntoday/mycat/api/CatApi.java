@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cat")
@@ -16,14 +18,32 @@ public class CatApi {
     private final CatService service;
 
     @GetMapping()
-    public String getCat() {
-        return "getCat";
+    public ResponseEntity<Object> getCat() {
+        List<CatDTO> catDTOs = service.get();
+        return new ResponseEntity<>(catDTOs, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Object> CatSave(@RequestBody CatDTO catDTO) {
+    public ResponseEntity<Object> save(@RequestBody CatDTO catDTO) {
         service.save(catDTO);
-        System.out.println("catDTO" + catDTO.toString());
         return new ResponseEntity<>("created", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> edit(@PathVariable Long id) {
+        CatDTO getCat = service.getFindById(id);
+        return new ResponseEntity<>(getCat, HttpStatus.OK);
+    }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody CatDTO catDTO) {
+        service.update(id, catDTO);
+        return new ResponseEntity<>("update", HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        service.delete(id);
+        return new ResponseEntity<>("update", HttpStatus.OK);
     }
 }

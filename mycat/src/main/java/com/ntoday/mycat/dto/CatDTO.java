@@ -1,9 +1,12 @@
 package com.ntoday.mycat.dto;
 
+import com.ntoday.mycat.domain.Breed;
+import com.ntoday.mycat.domain.Gender;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -11,14 +14,15 @@ import java.util.List;
 @ToString
 public class CatDTO {
 
+    private Long id;
     private String name;
-    private String gender;
-    private String age;
+    private Gender gender;
+    private int age;
     private List<WeightDTO> weight;
-    private String kind;
-    private String birthday;
+    private Breed breeds;
+    private LocalDate birthday;
     private boolean isNeutering;
-    private String isDead;
+    private boolean isDead;
     private List<FeedDTO> feed;
     private List<DiseaseDTO> diseases;
     private List<InoculationDTO> inoculation;

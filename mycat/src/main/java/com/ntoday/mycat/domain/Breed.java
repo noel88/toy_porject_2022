@@ -1,0 +1,36 @@
+package com.ntoday.mycat.domain;
+
+public enum Breed {
+    BritishShorthair,
+    AmericanShorthair,
+    Chartreux,
+    RussianBlue,
+    Nebelung,
+    TurkishAngora,
+    TurkishVan,
+    Persian,
+    Himalayan,
+    NorwegianForestCat,
+    SiberianForestCat,
+    NevaMasquerAde,
+    Birman,
+    Ragdoll,
+    Ragamuffin,
+    scottishFold,
+    AmericanCurl,
+    Munchkin,
+    Abyssinian,
+    EgyptianMau,
+    Bengal,
+    Ocicat,
+    Toyger,
+    MaineCoon,
+    Exotic,
+    Siamese,
+    Burmese,
+    Tonkinese,
+    Bombay,
+    Korat,
+    DomesticShorthair
+
+}

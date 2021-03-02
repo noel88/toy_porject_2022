@@ -4,6 +4,7 @@ import com.ntoday.mycat.domain.audit.DateAudit;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -36,16 +37,21 @@ public class Cat extends DateAudit {
     private Long id;
 
     private String name;
-    private String gender;
-    private String age;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private int age;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Weight> weight;
 
-    private String kind;
-    private String birthday;
+    @Enumerated(EnumType.STRING)
+    private Breed breeds;
+
+    private LocalDate birthday;
     private boolean isNeutering;
-    private String isDead;
+    private boolean isDead;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feed> feed;
