@@ -41,7 +41,7 @@ public class CatApi {
         return new ResponseEntity<>("update", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         service.delete(id);
         return new ResponseEntity<>("update", HttpStatus.OK);

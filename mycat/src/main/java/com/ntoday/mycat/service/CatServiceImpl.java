@@ -42,15 +42,16 @@ public class CatServiceImpl implements CatService {
     @Override
     public void update(Long id, CatDTO catDTO) {
         Optional<Cat> getCat = catRepository.findById(id);
-        getCat.ifPresent(cat -> Cat.builder()
-                .age(catDTO.getAge())
-                .birthday(catDTO.getBirthday())
-                .gender(catDTO.getGender())
-                .isDead(catDTO.isDead())
-                .isNeutering(catDTO.isNeutering())
-                .name(catDTO.getName())
-                .breeds(catDTO.getBreeds())
-                .build());
+        Cat cat = getCat.orElseThrow(RuntimeException::new);
+        cat.setAge(catDTO.getAge());
+        cat.setBirthday(catDTO.getBirthday());
+        cat.setGender(catDTO.getGender());
+        cat.setName(catDTO.getName());
+        cat.setDead(catDTO.isDead());
+        cat.setNeutering(catDTO.isNeutering());
+        cat.setBreeds(catDTO.getBreeds());
+
+        catRepository.save(cat);
     }
 
     @Override
