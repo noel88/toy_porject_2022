@@ -8,5 +8,4 @@ import lombok.Setter;
 public class InoculationDTO {
 
     private String name;
-    private CatDTO cat;
 }

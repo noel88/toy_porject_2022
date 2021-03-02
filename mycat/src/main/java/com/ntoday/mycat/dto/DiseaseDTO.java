@@ -8,5 +8,4 @@ import lombok.Setter;
 @Setter
 public class DiseaseDTO {
     private String name;
-    private Cat cat;
 }

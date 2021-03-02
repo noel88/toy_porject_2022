@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,7 +45,7 @@ public class Cat extends DateAudit {
     private int age;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Weight> weight;
+    private List<Weight> weights = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Breed breeds;
@@ -54,12 +55,36 @@ public class Cat extends DateAudit {
     private boolean isDead;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Feed> feed;
+    private List<Feed> feeds = new ArrayList<>();
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Disease> diseases;
+    private List<Disease> diseases = new ArrayList<>();
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inoculation> inoculation;
+    private List<Inoculation> inoculations = new ArrayList<>();
+    @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vomit> vomits = new ArrayList<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Users user;
+    public void addWeight(Weight weight) {
+        this.weights.add(weight);
+        weight.setCat(this);
+    }
+
+    public void addFeeds(Feed feed) {
+        this.feeds.add(feed);
+        feed.setCat(this);
+    }
+
+    public void addDiseases(Disease disease) {
+        this.diseases.add(disease);
+        disease.setCat(this);
+    }
+
+    public void addInoculations(Inoculation inoculation) {
+        this.inoculations.add(inoculation);
+        inoculation.setCat(this);
+    }
+
+    public void addVomit(Vomit vomit) {
+        this.vomits.add(vomit);
+        vomit.setCat(this);
+    }
 }

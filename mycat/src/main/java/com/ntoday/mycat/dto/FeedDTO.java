@@ -11,5 +11,4 @@ public class FeedDTO {
     private String brandName;
     private int price;
     private int weight;
-    private CatDTO cat;
 }

@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class WeightDTO {
     private int weight;
-    private CatDTO cat;
 }

@@ -1,8 +1,6 @@
 package com.ntoday.mycat.api;
-
-
 import com.ntoday.mycat.dto.CatDTO;
-import com.ntoday.mycat.service.specific.CatService;
+import com.ntoday.mycat.service.specific.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/cat")
 public class CatApi {
 
-    private final CatService service;
+    private final ApiService service;
 
     @GetMapping()
     public ResponseEntity<Object> getCat() {
@@ -44,6 +42,6 @@ public class CatApi {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         service.delete(id);
-        return new ResponseEntity<>("update", HttpStatus.OK);
+        return new ResponseEntity<>("delete", HttpStatus.OK);
     }
 }
