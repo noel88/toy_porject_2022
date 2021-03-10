@@ -31,3 +31,26 @@ spring:
   logging:
     level:
       org.springframework.data: debug
+---
+spring:
+  profiles: deploy
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db/bams?currentSchema=${spring.jpa.properties.hibernate.default_schema}
+    username: postgres
+    password: rt2580
+  jpa:
+    properties:
+      hibernate:
+        default_schema: bams
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  redis:
+    host: redis
+  logging:
+    level:
+      org.springframework.security: debug
+
