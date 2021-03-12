@@ -23,7 +23,7 @@ public class CatApi {
 
     @PostMapping()
     public ResponseEntity<Object> save(@RequestBody CatDTO catDTO) {
-        service.save(catDTO);
+        service.addCat(catDTO);
         return new ResponseEntity<>("created", HttpStatus.CREATED);
     }
 
@@ -35,13 +35,13 @@ public class CatApi {
 
     @PostMapping("/update/{id}")
     public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody CatDTO catDTO) {
-        service.update(id, catDTO);
+        service.UpdateCat(id, catDTO);
         return new ResponseEntity<>("update", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
-        service.delete(id);
+        service.DeleteCat(id);
         return new ResponseEntity<>("delete", HttpStatus.OK);
     }
 }

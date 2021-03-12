@@ -45,7 +45,7 @@ public class Cat extends DateAudit {
     private int age;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Weight> weights = new ArrayList<>();
+    private List<Weight> weights;
 
     @Enumerated(EnumType.STRING)
     private Breed breeds;
@@ -55,13 +55,13 @@ public class Cat extends DateAudit {
     private boolean isDead;
 
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Feed> feeds = new ArrayList<>();
+    private List<Feed> feeds;
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Disease> diseases = new ArrayList<>();
+    private List<Disease> diseases;
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inoculation> inoculations = new ArrayList<>();
+    private List<Inoculation> inoculations;
     @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vomit> vomits = new ArrayList<>();
+    private List<Vomit> vomits;
 
     public void addWeight(Weight weight) {
         this.weights.add(weight);
