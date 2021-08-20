@@ -96,8 +96,8 @@ extension MemoEditViewController: UITextFieldDelegate {
 extension MemoEditViewController: FacebookLikeReactionDelegate {
 
     func selectedReaction(reaction: Reaction) {
-        print("Selected-------\(reaction.title)")
-        categoryBtn.setTitle(reaction.title, for: .normal) 
+        let img = UIImage(named: reaction.imageName)
+        categoryBtn.setImage(img, for: .normal)
     }
     
 }
