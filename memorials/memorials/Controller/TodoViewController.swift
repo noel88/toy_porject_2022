@@ -23,7 +23,7 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     @IBOutlet weak var seletedDate: UILabel!
     @IBOutlet weak var priorityField: UITextField!
     @IBOutlet weak var todoField: UITextField!
-    @IBOutlet weak var categoryBtn: UIButton!
+//    @IBOutlet weak var categoryBtn: UIButton!
     
     @IBAction func save() {
         let memo = Todo(date: seletedDate.text!, category: nil, priority: Int(priorityField.text!), description: todoField.text!)
@@ -40,14 +40,14 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     override func viewDidLoad() {
        super.viewDidLoad()
         
-       reactionView = ReactionView()
-       let reactions: [Reaction] = [Reaction(title: "Laugh", imageName: "icn_laugh"),
-                            Reaction(title: "Like", imageName: "icn_like"),
-                            Reaction(title: "Angry", imageName: "icn_angry"),
-                            Reaction(title: "Love", imageName: "icn_love"),
-                            Reaction(title: "Sad", imageName: "icn_sad")]
-
-        reactionView?.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: categoryBtn)
+//       reactionView = ReactionView()
+//       let reactions: [Reaction] = [Reaction(title: "Laugh", imageName: "icn_laugh"),
+//                            Reaction(title: "Like", imageName: "icn_like"),
+//                            Reaction(title: "Angry", imageName: "icn_angry"),
+//                            Reaction(title: "Love", imageName: "icn_love"),
+//                            Reaction(title: "Sad", imageName: "icn_sad")]
+//
+//        reactionView?.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: categoryBtn)
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -97,12 +97,12 @@ extension TodoViewController: UITextFieldDelegate {
 }
 
 
-extension TodoViewController: FacebookLikeReactionDelegate {
-    func selectedReaction(reaction: Reaction) {
-        let img = UIImage(named: reaction.imageName)
-        categoryBtn.setImage(img, for: .normal)
-    }
-}
+//extension TodoViewController: FacebookLikeReactionDelegate {
+//    func selectedReaction(reaction: Reaction) {
+//        let img = UIImage(named: reaction.imageName)
+//        categoryBtn.setImage(img, for: .normal)
+//    }
+//}
 
 extension TodoViewController: DataDelegate {
     func selectedDateToString(date: String) {
