@@ -7,6 +7,7 @@ target 'memorials' do
   pod 'TextFieldEffects'
   pod 'FacebookLikeReaction'
   pod 'FSCalendar'
+  pod 'TimelineTableViewCell'
   # Pods for memorials
 
 end

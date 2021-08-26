@@ -16,6 +16,7 @@
 		952F809026CDF985009AFCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952F808F26CDF985009AFCB8 /* Assets.xcassets */; };
 		952F809326CDF985009AFCB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952F809126CDF985009AFCB8 /* LaunchScreen.storyboard */; };
 		952F809B26CE309A009AFCB8 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F809A26CE309A009AFCB8 /* TodoViewController.swift */; };
+		95EEC70626D75D7000D2A40F /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */; };
 		95FF7CF026D7298B00E7AA03 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		952F809226CDF985009AFCB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		952F809426CDF985009AFCB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		952F809A26CE309A009AFCB8 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		EC9741DF47F4CC896FCD4B26 /* Pods_memorials.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_memorials.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -85,18 +87,27 @@
 		952F808526CDF984009AFCB8 /* memorials */ = {
 			isa = PBXGroup;
 			children = (
+				95EEC70426D75D4300D2A40F /* Controller */,
 				95236F1E26D719A900F873DD /* Models */,
 				952F808626CDF984009AFCB8 /* AppDelegate.swift */,
 				952F808826CDF984009AFCB8 /* SceneDelegate.swift */,
-				952F808A26CDF984009AFCB8 /* MainViewController.swift */,
 				952F808C26CDF984009AFCB8 /* Main.storyboard */,
 				952F808F26CDF985009AFCB8 /* Assets.xcassets */,
 				952F809126CDF985009AFCB8 /* LaunchScreen.storyboard */,
 				952F809426CDF985009AFCB8 /* Info.plist */,
-				952F809A26CE309A009AFCB8 /* TodoViewController.swift */,
 				95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */,
 			);
 			path = memorials;
+			sourceTree = "<group>";
+		};
+		95EEC70426D75D4300D2A40F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				952F808A26CDF984009AFCB8 /* MainViewController.swift */,
+				952F809A26CE309A009AFCB8 /* TodoViewController.swift */,
+				95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		DB586C207427063CBD36FBFC /* Pods */ = {
@@ -223,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				952F808B26CDF984009AFCB8 /* MainViewController.swift in Sources */,
+				95EEC70626D75D7000D2A40F /* TimelineTableViewController.swift in Sources */,
 				95FF7CF026D7298B00E7AA03 /* TodoCell.swift in Sources */,
 				952F808726CDF984009AFCB8 /* AppDelegate.swift in Sources */,
 				952F809B26CE309A009AFCB8 /* TodoViewController.swift in Sources */,
