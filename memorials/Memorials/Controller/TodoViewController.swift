@@ -1,5 +1,5 @@
 //
-//  MemoEditViewController.swift
+//  MemoViewController.swift
 //  memorials
 //
 //  Created by Xiah Lee on 2021/08/19.
@@ -8,35 +8,46 @@
 import UIKit
 import FacebookLikeReaction
 
-class MemoEditViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIToolbarDelegate {
+protocol DataDelegate {
+    func selectedDateToString(date: String)
+}
+
+class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIToolbarDelegate {
     
     let salutations = ["1", "2", "3", "4", "5"]
     let pickerView = UIPickerView()
+    var date: String?
     
     var btnReaction: UIButton!
     var reactionView: ReactionView?
+    @IBOutlet weak var seletedDate: UILabel!
     @IBOutlet weak var priorityField: UITextField!
     @IBOutlet weak var todoField: UITextField!
-    @IBOutlet weak var categoryBtn: UIButton!
+//    @IBOutlet weak var categoryBtn: UIButton!
+    
+    @IBAction func save() {
+        let memo = Todo(date: seletedDate.text!, category: nil, priority: Int(priorityField.text!), description: todoField.text!)
+        Todo.todos.append(memo)
+        NotificationCenter.default.post(name: Notification.Name("DismissModal"), object: nil, userInfo: nil)
+        dismiss(animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        seletedDate.text = self.date
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+       super.viewDidLoad()
         
-//        btnReaction = UIButton(frame: CGRect(x: 100, y: 100, width: 200, height: 30))
-//        btnReaction.setTitle("Long Press here", for: .normal)
-//        btnReaction.setTitleColor(UIColor.red, for: .normal)
-//        view.addSubview(btnReaction)
-        
-       reactionView = ReactionView()
-       let reactions: [Reaction] = [Reaction(title: "Laugh", imageName: "icn_laugh"),
-                            Reaction(title: "Like", imageName: "icn_like"),
-                            Reaction(title: "Angry", imageName: "icn_angry"),
-                            Reaction(title: "Love", imageName: "icn_love"),
-                            Reaction(title: "Sad", imageName: "icn_sad")]
-
-        reactionView?.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: categoryBtn)
-        
-        
+//       reactionView = ReactionView()
+//       let reactions: [Reaction] = [Reaction(title: "Laugh", imageName: "icn_laugh"),
+//                            Reaction(title: "Like", imageName: "icn_like"),
+//                            Reaction(title: "Angry", imageName: "icn_angry"),
+//                            Reaction(title: "Love", imageName: "icn_love"),
+//                            Reaction(title: "Sad", imageName: "icn_sad")]
+//
+//        reactionView?.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: categoryBtn)
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -50,15 +61,8 @@ class MemoEditViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         toolBar.setItems([flexibleSpace,doneBtn], animated: false)
         priorityField.inputAccessoryView = toolBar
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(updateStoryPrompt), name: UIResponder.keyboardDidHideNotification, object: nil)
-        
     }
-    
-//    @objc func updateStoryPrompt() {
-//        priorityField.text ?? ""
-////        adjectiveTextField.text ?? ""
-//    }
+
     
     @objc func didTapDone() {
         let row = self.pickerView.selectedRow(inComponent: 0)
@@ -85,7 +89,7 @@ class MemoEditViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
 }
 
-extension MemoEditViewController: UITextFieldDelegate {
+extension TodoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -93,11 +97,15 @@ extension MemoEditViewController: UITextFieldDelegate {
 }
 
 
-extension MemoEditViewController: FacebookLikeReactionDelegate {
+//extension TodoViewController: FacebookLikeReactionDelegate {
+//    func selectedReaction(reaction: Reaction) {
+//        let img = UIImage(named: reaction.imageName)
+//        categoryBtn.setImage(img, for: .normal)
+//    }
+//}
 
-    func selectedReaction(reaction: Reaction) {
-        let img = UIImage(named: reaction.imageName)
-        categoryBtn.setImage(img, for: .normal)
+extension TodoViewController: DataDelegate {
+    func selectedDateToString(date: String) {
+        self.date = date
     }
-    
 }

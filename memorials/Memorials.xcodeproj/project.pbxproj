@@ -8,27 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		06F53B23493C332B03D337EC /* Pods_memorials.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9741DF47F4CC896FCD4B26 /* Pods_memorials.framework */; };
+		95236F2026D719B500F873DD /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95236F1F26D719B500F873DD /* Todo.swift */; };
 		952F808726CDF984009AFCB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F808626CDF984009AFCB8 /* AppDelegate.swift */; };
 		952F808926CDF984009AFCB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F808826CDF984009AFCB8 /* SceneDelegate.swift */; };
-		952F808B26CDF984009AFCB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F808A26CDF984009AFCB8 /* ViewController.swift */; };
+		952F808B26CDF984009AFCB8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F808A26CDF984009AFCB8 /* MainViewController.swift */; };
 		952F808E26CDF984009AFCB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952F808C26CDF984009AFCB8 /* Main.storyboard */; };
 		952F809026CDF985009AFCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952F808F26CDF985009AFCB8 /* Assets.xcassets */; };
 		952F809326CDF985009AFCB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952F809126CDF985009AFCB8 /* LaunchScreen.storyboard */; };
-		952F809B26CE309A009AFCB8 /* MemoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F809A26CE309A009AFCB8 /* MemoEditViewController.swift */; };
+		952F809B26CE309A009AFCB8 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F809A26CE309A009AFCB8 /* TodoViewController.swift */; };
+		95EEC70626D75D7000D2A40F /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */; };
+		95FF7CF026D7298B00E7AA03 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3422C28ABF6EDA3E65AAE4A2 /* Pods-memorials.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-memorials.debug.xcconfig"; path = "Target Support Files/Pods-memorials/Pods-memorials.debug.xcconfig"; sourceTree = "<group>"; };
 		52971059CF8FC947BED225E0 /* Pods-memorials.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-memorials.release.xcconfig"; path = "Target Support Files/Pods-memorials/Pods-memorials.release.xcconfig"; sourceTree = "<group>"; };
-		952F808326CDF984009AFCB8 /* memorials.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = memorials.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95236F1F26D719B500F873DD /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		952F808326CDF984009AFCB8 /* Memorials.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorials.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		952F808626CDF984009AFCB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		952F808826CDF984009AFCB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		952F808A26CDF984009AFCB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		952F808A26CDF984009AFCB8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		952F808D26CDF984009AFCB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		952F808F26CDF985009AFCB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		952F809226CDF985009AFCB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		952F809426CDF985009AFCB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		952F809A26CE309A009AFCB8 /* MemoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEditViewController.swift; sourceTree = "<group>"; };
+		952F809A26CE309A009AFCB8 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
+		95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		EC9741DF47F4CC896FCD4B26 /* Pods_memorials.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_memorials.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -52,10 +58,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		95236F1E26D719A900F873DD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95236F1F26D719B500F873DD /* Todo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		952F807A26CDF984009AFCB8 = {
 			isa = PBXGroup;
 			children = (
-				952F808526CDF984009AFCB8 /* memorials */,
+				952F808526CDF984009AFCB8 /* Memorials */,
 				952F808426CDF984009AFCB8 /* Products */,
 				DB586C207427063CBD36FBFC /* Pods */,
 				7669C1E9ED49202A5A6D07B4 /* Frameworks */,
@@ -65,24 +79,35 @@
 		952F808426CDF984009AFCB8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				952F808326CDF984009AFCB8 /* memorials.app */,
+				952F808326CDF984009AFCB8 /* Memorials.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		952F808526CDF984009AFCB8 /* memorials */ = {
+		952F808526CDF984009AFCB8 /* Memorials */ = {
 			isa = PBXGroup;
 			children = (
+				95EEC70426D75D4300D2A40F /* Controller */,
+				95236F1E26D719A900F873DD /* Models */,
 				952F808626CDF984009AFCB8 /* AppDelegate.swift */,
 				952F808826CDF984009AFCB8 /* SceneDelegate.swift */,
-				952F808A26CDF984009AFCB8 /* ViewController.swift */,
 				952F808C26CDF984009AFCB8 /* Main.storyboard */,
 				952F808F26CDF985009AFCB8 /* Assets.xcassets */,
 				952F809126CDF985009AFCB8 /* LaunchScreen.storyboard */,
 				952F809426CDF985009AFCB8 /* Info.plist */,
-				952F809A26CE309A009AFCB8 /* MemoEditViewController.swift */,
+				95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */,
 			);
-			path = memorials;
+			path = Memorials;
+			sourceTree = "<group>";
+		};
+		95EEC70426D75D4300D2A40F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				952F808A26CDF984009AFCB8 /* MainViewController.swift */,
+				952F809A26CE309A009AFCB8 /* TodoViewController.swift */,
+				95EEC70526D75D7000D2A40F /* TimelineTableViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		DB586C207427063CBD36FBFC /* Pods */ = {
@@ -97,9 +122,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		952F808226CDF984009AFCB8 /* memorials */ = {
+		952F808226CDF984009AFCB8 /* Memorials */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 952F809726CDF985009AFCB8 /* Build configuration list for PBXNativeTarget "memorials" */;
+			buildConfigurationList = 952F809726CDF985009AFCB8 /* Build configuration list for PBXNativeTarget "Memorials" */;
 			buildPhases = (
 				F3E1AF2CE1F91F4739C0B0B1 /* [CP] Check Pods Manifest.lock */,
 				952F807F26CDF984009AFCB8 /* Sources */,
@@ -111,9 +136,9 @@
 			);
 			dependencies = (
 			);
-			name = memorials;
+			name = Memorials;
 			productName = memorials;
-			productReference = 952F808326CDF984009AFCB8 /* memorials.app */;
+			productReference = 952F808326CDF984009AFCB8 /* Memorials.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +155,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 952F807E26CDF984009AFCB8 /* Build configuration list for PBXProject "memorials" */;
+			buildConfigurationList = 952F807E26CDF984009AFCB8 /* Build configuration list for PBXProject "Memorials" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -143,7 +168,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				952F808226CDF984009AFCB8 /* memorials */,
+				952F808226CDF984009AFCB8 /* Memorials */,
 			);
 		};
 /* End PBXProject section */
@@ -208,10 +233,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				952F808B26CDF984009AFCB8 /* ViewController.swift in Sources */,
+				952F808B26CDF984009AFCB8 /* MainViewController.swift in Sources */,
+				95EEC70626D75D7000D2A40F /* TimelineTableViewController.swift in Sources */,
+				95FF7CF026D7298B00E7AA03 /* TodoCell.swift in Sources */,
 				952F808726CDF984009AFCB8 /* AppDelegate.swift in Sources */,
-				952F809B26CE309A009AFCB8 /* MemoEditViewController.swift in Sources */,
+				952F809B26CE309A009AFCB8 /* TodoViewController.swift in Sources */,
 				952F808926CDF984009AFCB8 /* SceneDelegate.swift in Sources */,
+				95236F2026D719B500F873DD /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +389,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 399236YMWF;
-				INFOPLIST_FILE = memorials/Info.plist;
+				INFOPLIST_FILE = Memorials/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,7 +409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 399236YMWF;
-				INFOPLIST_FILE = memorials/Info.plist;
+				INFOPLIST_FILE = Memorials/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,7 +424,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		952F807E26CDF984009AFCB8 /* Build configuration list for PBXProject "memorials" */ = {
+		952F807E26CDF984009AFCB8 /* Build configuration list for PBXProject "Memorials" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				952F809526CDF985009AFCB8 /* Debug */,
@@ -405,7 +433,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		952F809726CDF985009AFCB8 /* Build configuration list for PBXNativeTarget "memorials" */ = {
+		952F809726CDF985009AFCB8 /* Build configuration list for PBXNativeTarget "Memorials" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				952F809826CDF985009AFCB8 /* Debug */,
