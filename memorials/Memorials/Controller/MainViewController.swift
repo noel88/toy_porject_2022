@@ -73,6 +73,11 @@ class MainViewController: UIViewController {
         }
     }
     
+    func getTodos() -> [Todo] {
+        let todos: [Todo] = CoreDataManager.shared.getTodos()
+        return todos
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = segue.destination as? TodoViewController else { return }
         vc.selectedDateToString(date: seletedDate ?? self.dateFormatter.string(from: Date()))
@@ -91,7 +96,7 @@ class MainViewController: UIViewController {
 //MARK:- Custom TableView Extension
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Todo.todos.count
+        return self.getTodos().count
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -117,8 +122,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(TodoCell.self)", for: indexPath) as? TodoCell
         else { fatalError("TodoCell을 찾을 수 없습니다.") }
         
-        cell.memoDescription.text = Todo.todos[indexPath.row].description
-        cell.priority.text = Todo.todos[indexPath.row].priority?.description
+        cell.title.text = self.getTodos()[indexPath.row].title
+        cell.priority.text = self.getTodos()[indexPath.row].priority
         self.setupCheckbox(checkUI: cell.checked)
         
         return cell

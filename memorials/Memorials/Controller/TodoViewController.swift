@@ -26,8 +26,8 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 //    @IBOutlet weak var categoryBtn: UIButton!
     
     @IBAction func save() {
-        let memo = Todo(date: seletedDate.text!, category: nil, priority: Int(priorityField.text!), description: todoField.text!)
-        Todo.todos.append(memo)
+        let newTodo = TodoViewModel(date: seletedDate.text!, priority: priorityField.text!, title: todoField.text!)
+        self.saveTodo(todo: newTodo)
         NotificationCenter.default.post(name: Notification.Name("DismissModal"), object: nil, userInfo: nil)
         dismiss(animated: true)
     }
@@ -63,6 +63,12 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         priorityField.inputAccessoryView = toolBar
     }
 
+    func saveTodo(todo: TodoViewModel) {
+        CoreDataManager.shared.saveTodo(date: todo.date, priority: todo.priority, title: todo.title!) { value in
+            print("success \(value)")
+        }
+    }
+    
     
     @objc func didTapDone() {
         let row = self.pickerView.selectedRow(inComponent: 0)

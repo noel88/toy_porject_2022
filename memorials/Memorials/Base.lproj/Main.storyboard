@@ -11,7 +11,7 @@
         <!--Today-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="memorials" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Memorials" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,7 +33,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7I5-uy-Nex">
                                 <rect key="frame" x="10" y="403" width="394" height="410"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoCell" rowHeight="100" id="bzJ-6q-nkX" customClass="TodoCell" customModule="memorials" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoCell" rowHeight="100" id="bzJ-6q-nkX" customClass="TodoCell" customModule="Memorials" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="394" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bzJ-6q-nkX" id="2gF-EN-HdI">
@@ -79,8 +79,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checked" destination="tif-aI-YIp" id="Lre-UH-dsD"/>
-                                            <outlet property="memoDescription" destination="hld-Z3-n8X" id="xRt-OG-Yee"/>
                                             <outlet property="priority" destination="HqK-Tc-DsJ" id="KiW-V0-dz2"/>
+                                            <outlet property="title" destination="hld-Z3-n8X" id="xRt-OG-Yee"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -133,7 +133,7 @@
         <!--Todo View Controller-->
         <scene sceneID="4o6-ef-b8i">
             <objects>
-                <viewController id="3Ba-GB-MgH" customClass="TodoViewController" customModule="memorials" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3Ba-GB-MgH" customClass="TodoViewController" customModule="Memorials" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D7K-dn-Ns6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -236,7 +236,7 @@
         <!--Timeline-->
         <scene sceneID="e7r-br-66K">
             <objects>
-                <tableViewController id="oUJ-tl-2h7" customClass="TimelineTableViewController" customModule="memorials" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="oUJ-tl-2h7" customClass="TimelineTableViewController" customModule="Memorials" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="F7t-w8-kdW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
