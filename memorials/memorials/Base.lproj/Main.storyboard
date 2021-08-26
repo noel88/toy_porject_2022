@@ -123,7 +123,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xpV-5C-qLg">
                             <connections>
-                                <segue destination="3Ba-GB-MgH" kind="presentation" modalPresentationStyle="pageSheet" id="fIW-Ti-Eni"/>
+                                <segue destination="3Ba-GB-MgH" kind="presentation" modalPresentationStyle="overCurrentContext" id="fIW-Ti-Eni"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -138,16 +138,16 @@
             </objects>
             <point key="canvasLocation" x="2689.8550724637685" y="-481.47321428571428"/>
         </scene>
-        <!--Memo View Controller-->
+        <!--Todo View Controller-->
         <scene sceneID="4o6-ef-b8i">
             <objects>
-                <viewController id="3Ba-GB-MgH" customClass="MemoViewController" customModule="memorials" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3Ba-GB-MgH" customClass="TodoViewController" customModule="memorials" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D7K-dn-Ns6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hWI-VN-05w">
-                                <rect key="frame" x="30" y="545.5" width="354" height="237.5"/>
+                                <rect key="frame" x="30" y="550.5" width="354" height="237.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Todo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIy-mn-K05">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="24"/>

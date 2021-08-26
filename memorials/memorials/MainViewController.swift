@@ -62,7 +62,7 @@ class MainViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let vc = segue.destination as? MemoViewController else { return }
+        guard let vc = segue.destination as? TodoViewController else { return }
         vc.selectedDateToString(date: seletedDate ?? Date().description)
     }
     

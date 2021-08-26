@@ -12,7 +12,7 @@ protocol DataDelegate {
     func selectedDateToString(date: String)
 }
 
-class MemoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIToolbarDelegate {
+class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIToolbarDelegate {
     
     let salutations = ["1", "2", "3", "4", "5"]
     let pickerView = UIPickerView()
@@ -38,7 +38,7 @@ class MemoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+       super.viewDidLoad()
         
        reactionView = ReactionView()
        let reactions: [Reaction] = [Reaction(title: "Laugh", imageName: "icn_laugh"),
@@ -89,7 +89,7 @@ class MemoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     
 }
 
-extension MemoViewController: UITextFieldDelegate {
+extension TodoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -97,14 +97,14 @@ extension MemoViewController: UITextFieldDelegate {
 }
 
 
-extension MemoViewController: FacebookLikeReactionDelegate {
+extension TodoViewController: FacebookLikeReactionDelegate {
     func selectedReaction(reaction: Reaction) {
         let img = UIImage(named: reaction.imageName)
         categoryBtn.setImage(img, for: .normal)
     }
 }
 
-extension MemoViewController: DataDelegate {
+extension TodoViewController: DataDelegate {
     func selectedDateToString(date: String) {
         self.date = date
     }
