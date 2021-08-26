@@ -82,6 +82,23 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return Todo.todos.count
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "수정") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+              print("수정 Action 확인")
+              success(true)
+        }
+        edit.backgroundColor = .systemPink
+              
+              
+       let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            print("삭제 Action 확인")
+            success(true)
+       }
+        delete.backgroundColor = .systemTeal
+      
+      //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
+      return UISwipeActionsConfiguration(actions:[edit, delete])
+    }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
