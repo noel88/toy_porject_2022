@@ -8,13 +8,32 @@
 import UIKit
 import FSCalendar
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, FSCalendarDelegate {
+    var delegate: DataDelegate?
+    var seletedDate: String?
+    let dismissModal: Notification.Name = Notification.Name("DismissModal")
+    
+    
+    static var memoList: [Todo] = [
+        Todo(date: "2020.08.11", category: "icn_like", priority: 2, description: "프로젝트 마무리 하기1"),
+        Todo(date: "2020.08.12", category: "icn_like", priority: 1, description: "프로젝트 마무리 하기2"),
+        Todo(date: "2020.08.13", category: "icn_like", priority: 5, description: "프로젝트 마무리 하기3"),
+        Todo(date: "2020.08.14", category: "icn_like", priority: 2, description: "프로젝트 마무리 하기4"),
+        Todo(date: "2020.08.15", category: "icn_like", priority: 3, description: "프로젝트 마무리 하기5")
+    ]
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return MainViewController.memoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: "Cell")!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(TodoCell.self)", for: indexPath) as? TodoCell
+        else { fatalError("Could not create BookCell") }
+        
+        cell.memoDescription.text = MainViewController.memoList[indexPath.row].description
+        cell.priority.text = MainViewController.memoList[indexPath.row].priority?.description
+        
         return cell
     }
     
@@ -38,7 +57,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy.MM.dd"
         return formatter
     }()
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
@@ -50,6 +69,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return panGesture
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didDismissPostCommentNotification(_:)), name: dismissModal, object: nil)
+    }
+    
+    @objc func didDismissPostCommentNotification(_ noti: Notification) {
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +89,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.locale = Locale(identifier: "ko_KR")
         self.calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? MemoViewController else { return }
+        vc.selectedDateToString(date: seletedDate ?? Date().description)
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -85,6 +119,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
         print("selected dates is \(selectedDates)")
+        
+        seletedDate = selectedDates[0]
+        
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
