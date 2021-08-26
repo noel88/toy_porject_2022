@@ -27,7 +27,7 @@ class MemoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     
     @IBAction func save() {
         let memo = Todo(date: seletedDate.text!, category: nil, priority: Int(priorityField.text!), description: todoField.text!)
-        MainViewController.memoList.append(memo)
+        Todo.todos.append(memo)
         NotificationCenter.default.post(name: Notification.Name("DismissModal"), object: nil, userInfo: nil)
         dismiss(animated: true)
     }

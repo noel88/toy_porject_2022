@@ -20,13 +20,13 @@ class Todo {
         self.description = description
     }
     
-//    static var todos: [Todo] = [
-//        Todo(date: "2020.08.11", category: nil, priority: 2, description: "프로젝트 마무리 하기1"),
-//        Todo(date: "2020.08.12", category: nil, priority: 1, description: "프로젝트 마무리 하기2"),
-//        Todo(date: "2020.08.13", category: nil, priority: 5, description: "프로젝트 마무리 하기3"),
-//        Todo(date: "2020.08.14", category: nil, priority: 2, description: "프로젝트 마무리 하기4"),
-//        Todo(date: "2020.08.15", category: nil, priority: 3, description: "프로젝트 마무리 하기5")
-//    ]
+    static var todos: [Todo] = [
+        Todo(date: "2020.08.11", category: "icn_like", priority: 2, description: "프로젝트 마무리 하기1"),
+        Todo(date: "2020.08.12", category: "icn_like", priority: 1, description: "프로젝트 마무리 하기2"),
+        Todo(date: "2020.08.13", category: "icn_like", priority: 5, description: "프로젝트 마무리 하기3"),
+        Todo(date: "2020.08.14", category: "icn_like", priority: 2, description: "프로젝트 마무리 하기4"),
+        Todo(date: "2020.08.15", category: "icn_like", priority: 3, description: "프로젝트 마무리 하기5")
+    ]
     
 //    private static func loadTodos() -> [Todo] {
 //        let decoder = JSONDecoder()
