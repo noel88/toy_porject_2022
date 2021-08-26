@@ -112,7 +112,9 @@
                             <constraint firstItem="bwZ-cP-JPh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="ysQ-DC-Z4f"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" selectedImage="pencil" catalog="system" id="D1I-2Z-mUn"/>
+                    <tabBarItem key="tabBarItem" title="Todo" image="outline_checklist_black_20pt" id="D1I-2Z-mUn">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Today" id="V7i-z3-6BY">
                         <barButtonItem key="leftBarButtonItem" title="Week" id="d2w-9b-CBh">
                             <connections>
@@ -256,7 +258,7 @@
             </objects>
             <point key="canvasLocation" x="3650.7246376811595" y="-444.64285714285711"/>
         </scene>
-        <!--Item-->
+        <!--TimeLine-->
         <scene sceneID="LSq-Or-pYe">
             <objects>
                 <viewController id="7ln-03-Zpe" sceneMemberID="viewController">
@@ -278,7 +280,9 @@
                             <constraint firstItem="QhN-9m-VWY" firstAttribute="centerX" secondItem="pAU-cv-3op" secondAttribute="centerX" id="Ifu-6l-t7s"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="vRi-m7-ua8"/>
+                    <tabBarItem key="tabBarItem" title="TimeLine" image="outline_timeline_black_20pt" id="vRi-m7-ua8">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOG-Io-Eoz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -325,7 +329,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="outline_checklist_black_20pt" width="20" height="20"/>
+        <image name="outline_timeline_black_20pt" width="20" height="20"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
