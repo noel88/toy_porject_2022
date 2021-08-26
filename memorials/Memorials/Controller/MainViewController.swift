@@ -95,21 +95,21 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let edit = UIContextualAction(style: .normal, title: "수정") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-              print("수정 Action 확인")
-              success(true)
-        }
-        edit.backgroundColor = .systemPink
+//        let edit = UIContextualAction(style: .normal, title: "수정") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+//              print("수정 Action 확인")
+//              success(true)
+//        }
+//        edit.backgroundColor = .systemPink
               
               
        let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print("삭제 Action 확인")
             success(true)
        }
-        delete.backgroundColor = .systemTeal
+        delete.backgroundColor = .systemRed
       
-      //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
-      return UISwipeActionsConfiguration(actions:[edit, delete])
+//      return UISwipeActionsConfiguration(actions:[edit, delete])
+        return UISwipeActionsConfiguration(actions:[delete])
     }
     
     
