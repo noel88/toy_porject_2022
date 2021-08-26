@@ -4,10 +4,10 @@
 target 'memorials' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'TextFieldEffects'
   pod 'FacebookLikeReaction'
   pod 'FSCalendar'
   pod 'TimelineTableViewCell'
+  pod 'SimpleCheckbox'
   # Pods for memorials
 
 end

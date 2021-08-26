@@ -41,33 +41,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dUK-MT-rLw">
-                                                    <rect key="frame" x="20" y="30" width="354.5" height="40"/>
+                                                    <rect key="frame" x="20" y="37.5" width="354.5" height="25"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7V2-NC-vf2">
-                                                            <rect key="frame" x="0.0" y="9" width="20" height="22"/>
+                                                        <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="tif-aI-YIp" customClass="Checkbox" customModule="SimpleCheckbox">
+                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="20" id="Gsh-EO-Jrd"/>
+                                                                <constraint firstAttribute="width" constant="25" id="LNa-Ht-z54"/>
+                                                                <constraint firstAttribute="height" constant="25" id="aMO-6E-uyk"/>
                                                             </constraints>
-                                                            <color key="tintColor" red="0.96842437982559204" green="0.72676271200180054" blue="0.26887297630310059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <state key="normal" image="pencil.circle" catalog="system"/>
-                                                        </button>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vgd-Ng-iJQ">
-                                                            <rect key="frame" x="25" y="0.0" width="39.5" height="40"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="vgd-Ng-iJQ" secondAttribute="height" id="xhW-wd-C7F"/>
-                                                            </constraints>
-                                                        </imageView>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hld-Z3-n8X">
-                                                            <rect key="frame" x="69.5" y="11.5" width="270" height="17"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="270" id="ScQ-H7-tbT"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="30" y="4" width="309.5" height="17"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="순위" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqK-Tc-DsJ">
-                                                            <rect key="frame" x="344.5" y="13.5" width="10" height="13.5"/>
+                                                            <rect key="frame" x="344.5" y="6" width="10" height="13.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="10" id="CEf-ir-7DO"/>
                                                             </constraints>
@@ -86,7 +78,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="categoryImage" destination="vgd-Ng-iJQ" id="Nk8-oi-zoL"/>
+                                            <outlet property="checked" destination="tif-aI-YIp" id="Lre-UH-dsD"/>
                                             <outlet property="memoDescription" destination="hld-Z3-n8X" id="xRt-OG-Yee"/>
                                             <outlet property="priority" destination="HqK-Tc-DsJ" id="KiW-V0-dz2"/>
                                         </connections>
@@ -316,9 +308,11 @@
     <resources>
         <image name="outline_checklist_black_20pt" width="20" height="20"/>
         <image name="outline_timeline_black_20pt" width="20" height="20"/>
-        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import SimpleCheckbox
 
 class TodoCell: UITableViewCell {
     @IBOutlet weak var memoDescription: UILabel!
-    @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var priority: UILabel!
+    @IBOutlet weak var checked: Checkbox!
 }

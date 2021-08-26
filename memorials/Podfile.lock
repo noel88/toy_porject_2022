@@ -1,28 +1,28 @@
 PODS:
   - FacebookLikeReaction (0.1.0)
   - FSCalendar (2.8.2)
-  - TextFieldEffects (1.6.0)
+  - SimpleCheckbox (2.1.0)
   - TimelineTableViewCell (2.2.2)
 
 DEPENDENCIES:
   - FacebookLikeReaction
   - FSCalendar
-  - TextFieldEffects
+  - SimpleCheckbox
   - TimelineTableViewCell
 
 SPEC REPOS:
   trunk:
     - FacebookLikeReaction
     - FSCalendar
-    - TextFieldEffects
+    - SimpleCheckbox
     - TimelineTableViewCell
 
 SPEC CHECKSUMS:
   FacebookLikeReaction: 20eb0a24018c703d8dd1cca4b50aa4502ea08855
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
+  SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
   TimelineTableViewCell: f0c35f7941775e48a5356e7c7ae3a5a51721c80a
 
-PODFILE CHECKSUM: 7fbaf449ea59ed4c6807ebdb54eda6289ce8f499
+PODFILE CHECKSUM: 4fd4eeabf4e5ff30d8dfa74e1bf692d618164ae8
 
 COCOAPODS: 1.10.1

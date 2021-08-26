@@ -7,6 +7,7 @@
 
 import UIKit
 import FSCalendar
+import SimpleCheckbox
 
 class MainViewController: UIViewController {
     var delegate: DataDelegate?
@@ -61,9 +62,20 @@ class MainViewController: UIViewController {
         self.setupCalendar()
     }
 
+    func setupCheckbox(checkUI: Checkbox) {
+        checkUI.borderStyle = .square
+        checkUI.checkmarkStyle = .tick
+        checkUI.checkedBorderColor = .gray
+        checkUI.checkmarkColor = .gray
+        checkUI.checkmarkSize = 0.7
+        checkUI.valueChanged = { (value) in
+            print("tickBox value change: \(value)")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = segue.destination as? TodoViewController else { return }
-        vc.selectedDateToString(date: seletedDate ?? Date().description)
+        vc.selectedDateToString(date: seletedDate ?? self.dateFormatter.string(from: Date()))
     }
     
     func setupCalendar() {
@@ -107,6 +119,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.memoDescription.text = Todo.todos[indexPath.row].description
         cell.priority.text = Todo.todos[indexPath.row].priority?.description
+        self.setupCheckbox(checkUI: cell.checked)
         
         return cell
     }
