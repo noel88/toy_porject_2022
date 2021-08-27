@@ -57,8 +57,7 @@ class CoreDataManager {
         return models
     }
     
-    func saveTodo(date: String,
-                  priority: String, title: String, onSuccess: @escaping ((Bool) -> Void)) {
+    func saveTodo(date: String, priority: String, title: String, onSuccess: @escaping ((Bool) -> Void)) {
         if let context = context,
             let entity: NSEntityDescription
             = NSEntityDescription.entity(forEntityName: modelName, in: context) {
@@ -70,7 +69,7 @@ class CoreDataManager {
                 todo.title = title
                 todo.checked = false
                 
-                contextSave { success in
+                saveContext { success in
                     onSuccess(success)
                 }
             }
@@ -78,7 +77,7 @@ class CoreDataManager {
     }
     
     func updateTodo(id: UUID, priority: String, title: String, checked: Bool, onSuccess: @escaping ((Bool) -> Void)) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = filteredRequest(id: id)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = resultFilterById(id: id)
         
         do {
             if let results: [Todo] = try context?.fetch(fetchRequest) as? [Todo] {
@@ -94,13 +93,13 @@ class CoreDataManager {
             onSuccess(false)
         }
         
-        contextSave { success in
+        saveContext { success in
             onSuccess(success)
         }
     }
     
     func deleteTodo(id: UUID, onSuccess: @escaping ((Bool) -> Void)) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = filteredRequest(id: id)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = resultFilterById(id: id)
         
         do {
             if let results: [Todo] = try context?.fetch(fetchRequest) as? [Todo] {
@@ -113,7 +112,7 @@ class CoreDataManager {
             onSuccess(false)
         }
         
-        contextSave { success in
+        saveContext { success in
             onSuccess(success)
         }
     }
@@ -122,14 +121,14 @@ class CoreDataManager {
 
 
 extension CoreDataManager {
-    fileprivate func filteredRequest(id: UUID) -> NSFetchRequest<NSFetchRequestResult> {
+    fileprivate func resultFilterById(id: UUID) -> NSFetchRequest<NSFetchRequestResult> {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult>
             = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
         fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         return fetchRequest
     }
     
-    fileprivate func contextSave(onSuccess: ((Bool) -> Void)) {
+    fileprivate func saveContext(onSuccess: ((Bool) -> Void)) {
         do {
             try context?.save()
             onSuccess(true)
