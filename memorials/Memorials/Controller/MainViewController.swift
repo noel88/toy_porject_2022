@@ -62,20 +62,30 @@ class MainViewController: UIViewController {
         self.setupCalendar()
     }
 
-    func setupCheckbox(checkUI: Checkbox) {
+    func setupCheckbox(checkUI: Checkbox, checked: Bool) {
         checkUI.borderStyle = .square
         checkUI.checkmarkStyle = .tick
         checkUI.checkedBorderColor = .gray
         checkUI.checkmarkColor = .gray
         checkUI.checkmarkSize = 0.7
-        checkUI.valueChanged = { (value) in
-            print("tickBox value change: \(value)")
-        }
+        checkUI.isChecked = checked
     }
     
     func getTodos() -> [Todo] {
         let todos: [Todo] = CoreDataManager.shared.getTodos()
         return todos
+    }
+    
+    func removeTodo(id: UUID) {
+        CoreDataManager.shared.deleteTodo(id: id) { value in
+            print("delete Todo: \(value)")
+        }
+    }
+    
+    func updateTodo(todo: Todo, checked: Bool) {
+        CoreDataManager.shared.updateTodo(id: todo.id!, priority: todo.priority!, title: todo.title!, checked: checked) { value in
+            print("update Todo: \(value)")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -108,8 +118,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
               
               
        let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("삭제 Action 확인")
+            
+            let todoId = self.getTodos()[indexPath.row].id
+            self.removeTodo(id: todoId!)
             success(true)
+            self.tableview.reloadData()
        }
         delete.backgroundColor = .systemRed
       
@@ -124,8 +137,23 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.title.text = self.getTodos()[indexPath.row].title
         cell.priority.text = self.getTodos()[indexPath.row].priority
-        self.setupCheckbox(checkUI: cell.checked)
+        let checkedTodo = self.getTodos()[indexPath.row].checked
+        self.setupCheckbox(checkUI: cell.checked, checked: checkedTodo)
         
+        if checkedTodo {
+            cell.title.attributedText = self.getTodos()[indexPath.row].title!.strikeThrough()
+        } else {
+            cell.title.attributedText = self.getTodos()[indexPath.row].title!.removeStrikeThrough()
+        }
+        
+        cell.checked.valueChanged = { checked in
+            if checked {
+                cell.title.attributedText = self.getTodos()[indexPath.row].title!.strikeThrough()
+            } else {
+                cell.title.attributedText = self.getTodos()[indexPath.row].title!.removeStrikeThrough()
+            }
+            self.updateTodo(todo: self.getTodos()[indexPath.row], checked: checked)
+        }
         return cell
     }
 }
@@ -175,6 +203,12 @@ extension String {
     func strikeThrough() -> NSAttributedString {
         let attributeString = NSMutableAttributedString(string: self)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0,attributeString.length))
+        return attributeString
+    }
+    func removeStrikeThrough() -> NSAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughColor, range: NSMakeRange(0, attributeString.length))
         return attributeString
     }
 }

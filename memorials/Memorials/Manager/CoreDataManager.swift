@@ -48,11 +48,34 @@ class CoreDataManager {
                 todo.date = date
                 todo.priority = priority
                 todo.title = title
+                todo.checked = false
                 
                 contextSave { success in
                     onSuccess(success)
                 }
             }
+        }
+    }
+    
+    func updateTodo(id: UUID, priority: String, title: String, checked: Bool, onSuccess: @escaping ((Bool) -> Void)) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = filteredRequest(id: id)
+        
+        do {
+            if let results: [Todo] = try context?.fetch(fetchRequest) as? [Todo] {
+                if results.count != 0 {
+                    let objectUpdate = results[0]
+                    objectUpdate.setValue(priority, forKey: "priority")
+                    objectUpdate.setValue(title, forKey: "title")
+                    objectUpdate.setValue(checked, forKey: "checked")
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fatch🥺: \(error), \(error.userInfo)")
+            onSuccess(false)
+        }
+        
+        contextSave { success in
+            onSuccess(success)
         }
     }
     
