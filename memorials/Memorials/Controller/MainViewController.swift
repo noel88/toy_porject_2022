@@ -60,6 +60,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupCalendar()
+        self.seletedDate = self.dateFormatter.string(from: Date())
     }
 
     func setupCheckbox(checkUI: Checkbox, checked: Bool) {
@@ -71,8 +72,8 @@ class MainViewController: UIViewController {
         checkUI.isChecked = checked
     }
     
-    func getTodos() -> [Todo] {
-        let todos: [Todo] = CoreDataManager.shared.getTodos()
+    func getSelectedDateTodos() -> [Todo] {
+        let todos: [Todo] = CoreDataManager.shared.getSeletedDateTodos(ascending: true, seletedDate: seletedDate!)
         return todos
     }
     
@@ -106,7 +107,7 @@ class MainViewController: UIViewController {
 //MARK:- Custom TableView Extension
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.getTodos().count
+        return self.getSelectedDateTodos().count
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -119,7 +120,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
               
        let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             
-            let todoId = self.getTodos()[indexPath.row].id
+            let todoId = self.getSelectedDateTodos()[indexPath.row].id
             self.removeTodo(id: todoId!)
             success(true)
             self.tableview.reloadData()
@@ -135,25 +136,26 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(TodoCell.self)", for: indexPath) as? TodoCell
         else { fatalError("TodoCell을 찾을 수 없습니다.") }
         
-        cell.title.text = self.getTodos()[indexPath.row].title
-        cell.priority.text = self.getTodos()[indexPath.row].priority
-        let checkedTodo = self.getTodos()[indexPath.row].checked
+        cell.title.text = self.getSelectedDateTodos()[indexPath.row].title
+        cell.priority.text = self.getSelectedDateTodos()[indexPath.row].priority
+        let checkedTodo = self.getSelectedDateTodos()[indexPath.row].checked
         self.setupCheckbox(checkUI: cell.checked, checked: checkedTodo)
         
         if checkedTodo {
-            cell.title.attributedText = self.getTodos()[indexPath.row].title!.strikeThrough()
+            cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.strikeThrough()
         } else {
-            cell.title.attributedText = self.getTodos()[indexPath.row].title!.removeStrikeThrough()
+            cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.removeStrikeThrough()
         }
         
         cell.checked.valueChanged = { checked in
             if checked {
-                cell.title.attributedText = self.getTodos()[indexPath.row].title!.strikeThrough()
+                cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.strikeThrough()
             } else {
-                cell.title.attributedText = self.getTodos()[indexPath.row].title!.removeStrikeThrough()
+                cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.removeStrikeThrough()
             }
-            self.updateTodo(todo: self.getTodos()[indexPath.row], checked: checked)
+            self.updateTodo(todo: self.getSelectedDateTodos()[indexPath.row], checked: checked)
         }
+        
         return cell
     }
 }
@@ -173,6 +175,7 @@ extension MainViewController: FSCalendarDelegate, UIGestureRecognizerDelegate {
         print("selected dates is \(selectedDates)")
         
         seletedDate = selectedDates[0]
+        self.tableview.reloadData()
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
