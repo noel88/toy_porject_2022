@@ -64,7 +64,7 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func saveTodo(todo: TodoViewModel) {
-        CoreDataManager.shared.saveTodo(date: todo.date, priority: todo.priority, title: todo.title!) { value in
+        CoreDataManager.shared.saveTodo(date: todo.date, priority: todo.priority, title: todo.title) { value in
             print("success \(value)")
         }
     }
