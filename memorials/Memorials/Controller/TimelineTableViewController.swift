@@ -10,9 +10,8 @@ import TimelineTableViewCell
 
 class TimelineTableViewController: UITableViewController {
 
-    func getTodos() -> Dictionary<String?, [Todo]> {
-        print("dicionray : \(Dictionary(grouping: CoreDataManager.shared.getTodos(), by: { $0.date }).count)")
-        return Dictionary(grouping: CoreDataManager.shared.getTodos(), by: { $0.date })
+    func getTodos() -> Dictionary<String, [Todo]> {
+        return Dictionary(grouping: CoreDataManager.shared.getTodos(), by: { $0.date! })
     }
     
     func removeDuplicateKeys (_ array: [String]) -> [String] {
@@ -42,35 +41,43 @@ class TimelineTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return getTodos().keys.count
+        return self.getTodos().keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getTodos()[section].value.count
+      
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+        
+        
+        guard descDic[section].value.count > 0 else { return 0 }
+        
+        return descDic[section].value.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let header = self.removeDuplicateKeys(getTodos().map{ $0.key! })
-        return header[section]
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+        
+        
+        if section < descDic[section].key.count {
+            return descDic[section].key
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TimelineTableViewCell", for: indexPath) as! TimelineTableViewCell
-        let todo = getTodos()[indexPath.row].value
+
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+            
+        cell.timelinePoint = TimelinePoint()
+        cell.descriptionLabel.text = descDic[indexPath.section].value[indexPath.row].title
         
-        for i in 0...todo.count - 1 {
-            cell.timelinePoint = TimelinePoint()
-            cell.timeline.frontColor = .clear
-            cell.timeline.backColor = .clear
-            cell.descriptionLabel.text = todo[i].value(forKey: "title") as? String
-    
-            if (todo[i].value(forKey: "checked") as? Bool)! {
-                cell.bubbleColor = .brown
-                cell.titleLabel.text = "할일 완료"
-            } else {
-                cell.bubbleColor = .darkGray
-                cell.titleLabel.text = "할일 미완료"
-            }
+        if descDic[indexPath.section].value[indexPath.row].checked {
+            cell.bubbleColor = .brown
+            cell.titleLabel.text = "할일 완료"
+        } else {
+            cell.bubbleColor = .darkGray
+            cell.titleLabel.text = "할일 미완료"
         }
         return cell
     }
@@ -80,8 +87,7 @@ class TimelineTableViewController: UITableViewController {
 extension Dictionary {
     subscript(row: Int) -> (key: Key, value: Value) {
         get {
-            print("i : \(startIndex)")
-            return self[index(startIndex, offsetBy: row + 1)]
+            return self[index(startIndex, offsetBy: row)]
         }
     }
 }

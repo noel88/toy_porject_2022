@@ -19,13 +19,11 @@ class CoreDataManager {
         
     func getTodos(ascending: Bool = false) -> [Todo] {
         var models: [Todo] = [Todo]()
-        
         if let context = context {
-            let idSort: NSSortDescriptor = NSSortDescriptor(key: "id", ascending: ascending)
+            let idSort: NSSortDescriptor = NSSortDescriptor(key: "date", ascending: ascending)
             let fetchRequest: NSFetchRequest<NSManagedObject>
                 = NSFetchRequest<NSManagedObject>(entityName: modelName)
             fetchRequest.sortDescriptors = [idSort]
-            
             do {
                 if let fetchResult: [Todo] = try context.fetch(fetchRequest) as? [Todo] {
                     models = fetchResult
