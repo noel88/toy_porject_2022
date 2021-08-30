@@ -10,13 +10,24 @@ import TimelineTableViewCell
 
 class TimelineTableViewController: UITableViewController {
 
+    func getTodos() -> Dictionary<String, [Todo]> {
+        return Dictionary(grouping: CoreDataManager.shared.getTodos(), by: { $0.date! })
+    }
     
-    let data:[Int: [(TimelinePoint, UIColor, String, String, String?, [String]?, String?)]] = [0:[
-            (TimelinePoint(), UIColor.black, "프로젝트 마감1", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", nil, nil, "Sun"),
-            (TimelinePoint(), UIColor.black, "프로젝트 마감2", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", nil, nil, "Sun"),
-            (TimelinePoint(), UIColor.green, "프로젝트 마감3", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", nil, nil, "Sun")
-        ]]
-
+    func removeDuplicateKeys (_ array: [String]) -> [String] {
+        var removeDuplicateKeysArray = [String]()
+        for i in array {
+            if removeDuplicateKeysArray.contains(i) == false {
+                removeDuplicateKeysArray.append(i)
+            }
+        }
+        return removeDuplicateKeysArray
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,66 +37,57 @@ class TimelineTableViewController: UITableViewController {
         let timelineTableViewCellNib = UINib(nibName: "TimelineTableViewCell",
             bundle: Bundle(url: nibUrl!)!)
         tableView.register(timelineTableViewCellNib, forCellReuseIdentifier: "TimelineTableViewCell")
-
-
     }
 
     // MARK: - Table view data source
-
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return data.count
+        return self.getTodos().keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        guard let sectionData = data[section] else {
-            return 0
-        }
-        return sectionData.count
+      
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+        
+        
+        guard descDic[section].value.count > 0 else { return 0 }
+        
+        return descDic[section].value.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "2021.08.26"
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+        
+        
+        if section < descDic[section].key.count {
+            return descDic[section].key
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TimelineTableViewCell", for: indexPath) as! TimelineTableViewCell
-        
-        guard let sectionData = data[indexPath.section] else {
-            return cell
-        }
-        
-        let (timelinePoint, timelineBackColor, title, description, lineInfo, thumbnails, illustration) = sectionData[indexPath.row]
-        var timelineFrontColor = UIColor.clear
-        if (indexPath.row > 0) {
-            timelineFrontColor = sectionData[indexPath.row - 1].1
-        }
-        cell.timelinePoint = timelinePoint
-        cell.timeline.frontColor = timelineFrontColor
-        cell.timeline.backColor = timelineBackColor
-        cell.titleLabel.text = title
-        cell.descriptionLabel.text = description
-        cell.lineInfoLabel.text = lineInfo
-        
-        if let thumbnails = thumbnails {
-            cell.viewsInStackView = thumbnails.map { thumbnail in
-                return UIImageView(image: UIImage(named: thumbnail))
-            }
-        }
-        else {
-            cell.viewsInStackView = []
-        }
 
-        if let illustration = illustration {
-            cell.illustrationImageView.image = UIImage(named: illustration)
-        }
-        else {
-            cell.illustrationImageView.image = nil
-        }
+        let descDic = self.getTodos().sorted { $0.key > $1.key }
+            
+        cell.timelinePoint = TimelinePoint()
+        cell.descriptionLabel.text = descDic[indexPath.section].value[indexPath.row].title
         
-        
+        if descDic[indexPath.section].value[indexPath.row].checked {
+            cell.bubbleColor = .brown
+            cell.titleLabel.text = "할일 완료"
+        } else {
+            cell.bubbleColor = .darkGray
+            cell.titleLabel.text = "할일 미완료"
+        }
         return cell
+    }
+}
+
+
+extension Dictionary {
+    subscript(row: Int) -> (key: Key, value: Value) {
+        get {
+            return self[index(startIndex, offsetBy: row)]
+        }
     }
 }

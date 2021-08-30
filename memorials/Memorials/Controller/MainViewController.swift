@@ -60,16 +60,32 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupCalendar()
+        self.seletedDate = self.dateFormatter.string(from: Date())
     }
 
-    func setupCheckbox(checkUI: Checkbox) {
+    func setupCheckbox(checkUI: Checkbox, checked: Bool) {
         checkUI.borderStyle = .square
         checkUI.checkmarkStyle = .tick
         checkUI.checkedBorderColor = .gray
         checkUI.checkmarkColor = .gray
         checkUI.checkmarkSize = 0.7
-        checkUI.valueChanged = { (value) in
-            print("tickBox value change: \(value)")
+        checkUI.isChecked = checked
+    }
+    
+    func getSelectedDateTodos() -> [Todo] {
+        let todos: [Todo] = CoreDataManager.shared.getSeletedDateTodos(ascending: true, seletedDate: seletedDate!)
+        return todos
+    }
+    
+    func removeTodo(id: UUID) {
+        CoreDataManager.shared.deleteTodo(id: id) { value in
+            print("delete Todo: \(value)")
+        }
+    }
+    
+    func updateTodo(todo: Todo, checked: Bool) {
+        CoreDataManager.shared.updateTodo(id: todo.id!, priority: todo.priority!, title: todo.title!, checked: checked) { value in
+            print("update Todo: \(value)")
         }
     }
     
@@ -91,7 +107,7 @@ class MainViewController: UIViewController {
 //MARK:- Custom TableView Extension
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Todo.todos.count
+        return self.getSelectedDateTodos().count
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -103,8 +119,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
               
               
        let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("삭제 Action 확인")
+            
+            let todoId = self.getSelectedDateTodos()[indexPath.row].id
+            self.removeTodo(id: todoId!)
             success(true)
+            self.tableview.reloadData()
        }
         delete.backgroundColor = .systemRed
       
@@ -117,9 +136,25 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(TodoCell.self)", for: indexPath) as? TodoCell
         else { fatalError("TodoCell을 찾을 수 없습니다.") }
         
-        cell.memoDescription.text = Todo.todos[indexPath.row].description
-        cell.priority.text = Todo.todos[indexPath.row].priority?.description
-        self.setupCheckbox(checkUI: cell.checked)
+        cell.title.text = self.getSelectedDateTodos()[indexPath.row].title
+        cell.priority.text = self.getSelectedDateTodos()[indexPath.row].priority
+        let checkedTodo = self.getSelectedDateTodos()[indexPath.row].checked
+        self.setupCheckbox(checkUI: cell.checked, checked: checkedTodo)
+        
+        if checkedTodo {
+            cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.strikeThrough()
+        } else {
+            cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.removeStrikeThrough()
+        }
+        
+        cell.checked.valueChanged = { checked in
+            if checked {
+                cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.strikeThrough()
+            } else {
+                cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.removeStrikeThrough()
+            }
+            self.updateTodo(todo: self.getSelectedDateTodos()[indexPath.row], checked: checked)
+        }
         
         return cell
     }
@@ -140,6 +175,7 @@ extension MainViewController: FSCalendarDelegate, UIGestureRecognizerDelegate {
         print("selected dates is \(selectedDates)")
         
         seletedDate = selectedDates[0]
+        self.tableview.reloadData()
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -170,6 +206,12 @@ extension String {
     func strikeThrough() -> NSAttributedString {
         let attributeString = NSMutableAttributedString(string: self)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0,attributeString.length))
+        return attributeString
+    }
+    func removeStrikeThrough() -> NSAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughColor, range: NSMakeRange(0, attributeString.length))
         return attributeString
     }
 }
