@@ -47,8 +47,6 @@ class TimelineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
         let descDic = self.getTodos().sorted { $0.key > $1.key }
-        
-        
         guard descDic[section].value.count > 0 else { return 0 }
         
         return descDic[section].value.count
@@ -56,7 +54,6 @@ class TimelineTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let descDic = self.getTodos().sorted { $0.key > $1.key }
-        
         
         if section < descDic[section].key.count {
             return descDic[section].key
@@ -71,13 +68,15 @@ class TimelineTableViewController: UITableViewController {
             
         cell.timelinePoint = TimelinePoint()
         cell.descriptionLabel.text = descDic[indexPath.section].value[indexPath.row].title
+        cell.backgroundColor = UIColor.black
         
         if descDic[indexPath.section].value[indexPath.row].checked {
-            cell.bubbleColor = .brown
-            cell.titleLabel.text = "할일 완료"
-        } else {
             cell.bubbleColor = .darkGray
-            cell.titleLabel.text = "할일 미완료"
+            cell.titleLabel.text = "완료"
+        } else {
+            cell.bubbleColor = .systemYellow
+            cell.titleLabel.textColor = .black
+            cell.titleLabel.text = "미완료"
         }
         return cell
     }
