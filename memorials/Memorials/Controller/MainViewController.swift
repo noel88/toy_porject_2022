@@ -68,6 +68,7 @@ class MainViewController: UIViewController {
         checkUI.checkmarkStyle = .tick
         checkUI.checkedBorderColor = .gray
         checkUI.checkmarkColor = .gray
+        checkUI.uncheckedBorderColor = .systemYellow
         checkUI.checkmarkSize = 0.7
         checkUI.isChecked = checked
     }
