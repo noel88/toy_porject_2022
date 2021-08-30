@@ -85,7 +85,7 @@ class MainViewController: UIViewController {
     
     func updateTodo(todo: Todo, checked: Bool) {
         CoreDataManager.shared.updateTodo(id: todo.id!, priority: todo.priority!, title: todo.title!, checked: checked) { value in
-            print("update Todo: \(value)")
+            print("Checked 항목이 업데이트 되었습니다. ")
         }
     }
     
@@ -136,7 +136,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(TodoCell.self)", for: indexPath) as? TodoCell
         else { fatalError("TodoCell을 찾을 수 없습니다.") }
         
-        cell.title.text = self.getSelectedDateTodos()[indexPath.row].title
         cell.priority.text = self.getSelectedDateTodos()[indexPath.row].priority
         let checkedTodo = self.getSelectedDateTodos()[indexPath.row].checked
         self.setupCheckbox(checkUI: cell.checked, checked: checkedTodo)
@@ -148,6 +147,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.checked.valueChanged = { checked in
+            
             if checked {
                 cell.title.attributedText = self.getSelectedDateTodos()[indexPath.row].title!.strikeThrough()
             } else {
@@ -170,9 +170,8 @@ extension MainViewController: FSCalendarDelegate, UIGestureRecognizerDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-        print("selected dates is \(selectedDates)")
+        print("Todo \(selectedDates)을 선택하였습니다. ")
         
         seletedDate = selectedDates[0]
         self.tableview.reloadData()
