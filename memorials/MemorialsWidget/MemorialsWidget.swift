@@ -13,12 +13,6 @@ import CoreData
 
 struct Provider: TimelineProvider {
 
-//    let coreDataManager: CoreDataManager
-
-    init() {
-//        coreDataManager = CoreDataManager(dataController)
-    }
-    
     func placeholder(in context: Context) -> MemorialsEntry {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
         if todos == nil {
@@ -31,8 +25,6 @@ struct Provider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (MemorialsEntry) -> ()) {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
         let entry: MemorialsEntry!
-        
-        print("todos \(todos)")
         
         if todos == nil {
             entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date())
@@ -57,8 +49,6 @@ struct Provider: TimelineProvider {
             } else {
                 entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: entryDate)
             }
-            
-//            let entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
             entries.append(entry!)
         }
 
@@ -73,29 +63,24 @@ struct MemorialsEntry: TimelineEntry {
     let date: Date
 }
 
-struct TodoListCell: View {
-    var body: some View {
-        HStack {
-            Text("완료되지 않은 항목")
-        }
-    }
-}
-
-
-
-
 struct MemorialsWidgetEntryView : View {
     @Environment(\.widgetFamily) private var widgetFamily
     var entry: Provider.Entry
     var body: some View {
-        HStack(alignment: .center) {
-            Text("오늘의 할일").font(.system(size: 15))
-        }
-        Divider()
-        VStack(alignment: .center, spacing: 10){
-            ForEach(entry.todos!, id:\.id){ todo in
-                Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
-                Divider()
+        if entry.todos != nil {
+            HStack(alignment: .center) {
+                Text("오늘의 할일").font(.system(size: 15))
+            }
+            Divider()
+            VStack(alignment: .leading, spacing: 10){
+                ForEach(entry.todos!.prefix(3), id:\.id){ todo in
+                    Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
+                    Divider()
+                }
+            }
+        } else {
+            HStack(alignment: .center) {
+                Text("오늘 미완료된 항목이 없습니다.").font(.system(size: 15))
             }
         }
     }
@@ -119,31 +104,10 @@ struct MemorialsWidget: Widget {
 }
 
 struct MemorialsWidget_Previews: PreviewProvider {
-//    let dataController = DataController()
-//    @State static var dataController = DataController()
     @State static var todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
     
-  
     static var previews: some View {
         MemorialsWidgetEntryView(entry: MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-
-//        if todos.count == 0 {
-//            MemorialsWidgetEntryView(entry: MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date()))
-//                .previewContext(WidgetPreviewContext(family: .systemMedium))
-//        } else {
-//            MemorialsWidgetEntryView(entry: MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date()))
-//                .previewContext(WidgetPreviewContext(family: .systemMedium))
-//        }
-
     }
 }
-//
-//struct TodoList {
-//    func getCurrentTodos() ->[Todo] {
-//        return CoreDataManager.shared.getSeletedDateUncheckedTodos()
-//    }
-//}
-//
-
-
