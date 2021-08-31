@@ -44,15 +44,22 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [MemorialsEntry] = []
-        
-        
+        let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
+        var entry: MemorialsEntry?
         
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
-            entries.append(entry)
+            
+            if todos == nil {
+                entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
+            } else {
+                entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: entryDate)
+            }
+            
+//            let entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
+            entries.append(entry!)
         }
 
         let timeline = Timeline(entries: entries, policy: .atEnd)
@@ -61,26 +68,41 @@ struct Provider: TimelineProvider {
 }
 
 struct MemorialsEntry: TimelineEntry {
-    let todos: [Todo]?
+    let todos: [TodoEntity]?
     let todoDataEmptyDescription: String?
     let date: Date
 }
 
-struct MemorialsWidgetEntryView : View {
-    @Environment(\.widgetFamily) private var widgetFamily
-    var entry: Provider.Entry
-
+struct TodoListCell: View {
     var body: some View {
-        switch widgetFamily {
-        case .systemSmall:
-            Text("Hello")
-        case .systemMedium:
-            Text("d")
-        @unknown default:
-            Text("unknown")
+        HStack {
+            Text("완료되지 않은 항목")
         }
     }
 }
+
+
+
+
+struct MemorialsWidgetEntryView : View {
+    @Environment(\.widgetFamily) private var widgetFamily
+    var entry: Provider.Entry
+    var body: some View {
+        HStack(alignment: .center) {
+            Text("오늘의 할일").font(.system(size: 15))
+        }
+        Divider()
+        VStack(alignment: .center, spacing: 10){
+            ForEach(entry.todos!, id:\.id){ todo in
+                Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
+                Divider()
+            }
+        }
+    }
+}
+
+
+
 
 @main
 struct MemorialsWidget: Widget {

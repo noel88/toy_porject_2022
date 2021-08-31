@@ -30,6 +30,8 @@
 		95FBC4B326DDCD1600A0397C /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FBC46E26D880AA00A0397C /* Todo+CoreDataClass.swift */; };
 		95FBC4B426DDCD2100A0397C /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FBC46F26D880AA00A0397C /* Todo+CoreDataProperties.swift */; };
 		95FBC4B526DDCD3D00A0397C /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9529989926D77F250073F3AA /* Todo.xcdatamodeld */; };
+		95FBC4B926DDECC300A0397C /* TodoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FBC4B826DDECC300A0397C /* TodoEntity.swift */; };
+		95FBC4BA26DDECC300A0397C /* TodoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FBC4B826DDECC300A0397C /* TodoEntity.swift */; };
 		95FF7CF026D7298B00E7AA03 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */; };
 		F12BE6E72E90C57D3C036E98 /* Pods_Memorials.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F391CA2FA71028A564ECC417 /* Pods_Memorials.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +86,7 @@
 		95FBC4AD26DDBF0A00A0397C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		95FBC4B626DDD61B00A0397C /* Memorials.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memorials.entitlements; sourceTree = "<group>"; };
 		95FBC4B726DDD63600A0397C /* MemorialsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemorialsWidgetExtension.entitlements; sourceTree = "<group>"; };
+		95FBC4B826DDECC300A0397C /* TodoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEntity.swift; sourceTree = "<group>"; };
 		95FF7CEF26D7298B00E7AA03 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D5A1C4FCFBCD8D4F9566E97C /* Pods-Memorials.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memorials.release.xcconfig"; path = "Target Support Files/Pods-Memorials/Pods-Memorials.release.xcconfig"; sourceTree = "<group>"; };
 		F391CA2FA71028A564ECC417 /* Pods_Memorials.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memorials.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +198,7 @@
 				95FBC49726DDB10700A0397C /* MemorialsWidget.swift */,
 				95FBC49926DDB10800A0397C /* Assets.xcassets */,
 				95FBC49B26DDB10800A0397C /* Info.plist */,
+				95FBC4B826DDECC300A0397C /* TodoEntity.swift */,
 			);
 			path = MemorialsWidget;
 			sourceTree = "<group>";
@@ -365,6 +369,7 @@
 				9529989B26D77F250073F3AA /* Todo.xcdatamodeld in Sources */,
 				952998A626D781AA0073F3AA /* CoreDataManager.swift in Sources */,
 				95FBC47026D880AA00A0397C /* Todo+CoreDataProperties.swift in Sources */,
+				95FBC4B926DDECC300A0397C /* TodoEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95FBC4BA26DDECC300A0397C /* TodoEntity.swift in Sources */,
 				95FBC49826DDB10700A0397C /* MemorialsWidget.swift in Sources */,
 				95FBC4B526DDCD3D00A0397C /* Todo.xcdatamodeld in Sources */,
 				95FBC4B326DDCD1600A0397C /* Todo+CoreDataClass.swift in Sources */,
