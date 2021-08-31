@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import WidgetKit
 
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
@@ -93,6 +94,7 @@ class CoreDataManager {
                 todo.checked = false
                 
                 saveContext { success in
+                    WidgetCenter.shared.reloadAllTimelines()
                     onSuccess(success)
                 }
             }
@@ -117,6 +119,7 @@ class CoreDataManager {
         }
         
         saveContext { success in
+            WidgetCenter.shared.reloadAllTimelines()
             onSuccess(success)
         }
     }
@@ -136,6 +139,7 @@ class CoreDataManager {
         }
         
         saveContext { success in
+            WidgetCenter.shared.reloadAllTimelines()
             onSuccess(success)
         }
     }
