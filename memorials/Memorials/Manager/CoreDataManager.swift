@@ -8,7 +8,6 @@
 import UIKit
 import CoreData
 
-
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
     
@@ -54,6 +53,32 @@ class CoreDataManager {
         }
         return models
     }
+    
+    
+    func getSeletedDateUncheckedTodos(ascending: Bool = false, seletedDate: Date = Date()) -> [Todo] {
+        var models: [Todo] = [Todo]()
+        
+        if let context = context {
+            let idSort: NSSortDescriptor = NSSortDescriptor(key: "priority", ascending: ascending)
+            let fetchRequest: NSFetchRequest<NSManagedObject>
+                = NSFetchRequest<NSManagedObject>(entityName: modelName)
+            fetchRequest.sortDescriptors = [idSort]
+        
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy.MM.dd"
+            let currentDateToString = formatter.string(from: seletedDate)
+            
+            do {
+                if let fetchResult: [Todo] = try context.fetch(fetchRequest) as? [Todo] {
+                    models = fetchResult.filter( {(todo: Todo) -> Bool in return ( todo.date == currentDateToString && todo.checked == false ) })
+                }
+            } catch let error as NSError {
+                print("Could not fetch🥺: \(error), \(error.userInfo)")
+            }
+        }
+        return models
+    }
+    
     
     func saveTodo(date: String, priority: String, title: String, onSuccess: @escaping ((Bool) -> Void)) {
         if let context = context,
