@@ -91,44 +91,44 @@ struct MemorialsWidgetEntryView : View {
             switch widgetFamily {
             case .systemSmall:
                 HStack(alignment: .center) {
-                    Text("오늘의 할일").font(.system(size: 13))
+                    Text("Todo").font(.system(size: 13))
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
+                    ForEach(entry.todos!.prefix(2), id:\.id){ todo in
                         Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
                         Divider()
                     }
                 }
             case .systemMedium:
                 HStack(alignment: .center) {
-                    Text("오늘의 할일").font(.system(size: 15))
+                    Text("Todo").font(.system(size: 15))
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(5), id:\.id){ todo in
+                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
                         Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
                         Divider()
                     }
                 }
             case .systemLarge:
                 HStack(alignment: .center) {
-                    Text("오늘의 할일").font(.system(size: 15))
+                    Text("Todo").font(.system(size: 15))
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(5), id:\.id){ todo in
+                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
                         Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
                         Divider()
                     }
                 }
             @unknown default:
                 HStack(alignment: .center) {
-                    Text("오늘의 할일").font(.system(size: 13))
+                    Text("Todo").font(.system(size: 13))
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
+                    ForEach(entry.todos!.prefix(2), id:\.id){ todo in
                         Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
                         Divider()
                     }
@@ -160,8 +160,8 @@ struct MemorialsWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             MemorialsWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("오늘 미완료된 Todo")
-        .description("현재 날짜의 미완료된 Todo 목록을 확인할 수 있습니다.")
+        .configurationDisplayName("미완료된 Todo")
+        .description("오늘 미완료된 Todo 목록을 확인할 수 있습니다.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
