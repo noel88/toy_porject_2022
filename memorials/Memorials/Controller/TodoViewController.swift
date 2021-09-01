@@ -17,9 +17,10 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let salutations = ["1", "2", "3", "4", "5"]
     let pickerView = UIPickerView()
     var date: String?
-    
     var btnReaction: UIButton!
     var reactionView: ReactionView?
+    
+    @IBOutlet weak var saveTodoBtn: UIButton!
     @IBOutlet weak var seletedDate: UILabel!
     @IBOutlet weak var priorityField: UITextField!
     @IBOutlet weak var todoField: UITextField!
@@ -61,11 +62,26 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         toolBar.setItems([flexibleSpace,doneBtn], animated: false)
         priorityField.inputAccessoryView = toolBar
+        
+        saveTodoBtn.isEnabled = false
+        saveTodoBtn.backgroundColor = UIColor(red: 247/255, green: 234/255, blue: 129/255, alpha: 1)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidEmpty(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func textFieldDidEmpty(_ notification: Notification) {
+        if priorityField.text != "" && todoField.text != "" {
+            saveTodoBtn.isEnabled = true
+            saveTodoBtn.backgroundColor = UIColor(red: 247/255, green: 178/255, blue: 38/255, alpha: 1)
+        } else {
+            saveTodoBtn.isEnabled = false
+            saveTodoBtn.backgroundColor = UIColor(red: 247/255, green: 234/255, blue: 129/255, alpha: 1)
+        }
     }
 
     func saveTodo(todo: TodoViewModel) {
         CoreDataManager.shared.saveTodo(date: todo.date, priority: todo.priority, title: todo.title) { value in
-            print("success \(value)")
+            print("Todo 항목이 저장되었습니다, \(value)")
         }
     }
     
@@ -86,13 +102,13 @@ class TodoViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-           return salutations[row]
-       }
-    
+       return salutations[row]
+   }
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         priorityField.text = salutations[row]
-       }
-    
+   }
+
 }
 
 extension TodoViewController: UITextFieldDelegate {

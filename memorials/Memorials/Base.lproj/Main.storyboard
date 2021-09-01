@@ -241,7 +241,7 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahv-Nk-vVQ">
                                         <rect key="frame" x="0.0" y="163" width="354" height="40"/>
-                                        <color key="backgroundColor" red="0.96862745100000003" green="0.69745498900000003" blue="0.1503470838" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.96862745100000003" green="0.69803921570000005" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="vZ8-2z-byU"/>
                                         </constraints>
@@ -266,6 +266,7 @@
                     </view>
                     <connections>
                         <outlet property="priorityField" destination="Rzb-qS-xB7" id="SOD-Fh-G1u"/>
+                        <outlet property="saveTodoBtn" destination="ahv-Nk-vVQ" id="LdQ-sx-JpY"/>
                         <outlet property="seletedDate" destination="DNP-Gq-Day" id="qL7-MV-whd"/>
                         <outlet property="todoField" destination="Ptk-2W-zoT" id="JKI-1g-Xf9"/>
                     </connections>
