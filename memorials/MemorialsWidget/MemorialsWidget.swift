@@ -15,7 +15,8 @@ struct Provider: TimelineProvider {
 
     func placeholder(in context: Context) -> MemorialsEntry {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
-        if todos == nil {
+        
+        if todos?.count == 0 {
            return MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date())
         } else {
             return MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date())
@@ -26,7 +27,7 @@ struct Provider: TimelineProvider {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
         let entry: MemorialsEntry!
         
-        if todos == nil {
+        if todos?.count == 0 {
             entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date())
         } else {
             entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date())
@@ -44,7 +45,7 @@ struct Provider: TimelineProvider {
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
             
-            if todos == nil {
+            if todos?.count == 0 {
                 entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
             } else {
                 entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: entryDate)
@@ -63,31 +64,94 @@ struct MemorialsEntry: TimelineEntry {
     let date: Date
 }
 
-struct MemorialsWidgetEntryView : View {
-    @Environment(\.widgetFamily) private var widgetFamily
-    var entry: Provider.Entry
+
+struct EmptySmallWidgetView : View {
     var body: some View {
-        if entry.todos != nil {
-            HStack(alignment: .center) {
-                Text("오늘의 할일").font(.system(size: 15))
-            }
-            Divider()
-            VStack(alignment: .leading, spacing: 10){
-                ForEach(entry.todos!.prefix(3), id:\.id){ todo in
-                    Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
-                    Divider()
-                }
-            }
-        } else {
-            HStack(alignment: .center) {
-                Text("오늘 미완료된 항목이 없습니다.").font(.system(size: 15))
-            }
+        HStack(alignment: .center) {
+            Text("미완료된 항목없음.").font(.system(size: 13))
         }
     }
 }
 
 
 
+struct EmptyMediumWidgetView : View {
+    var body: some View {
+        HStack(alignment: .center) {
+            Text("오늘 미완료된 항목이 없습니다.").font(.system(size: 15))
+        }
+    }
+}
+
+struct MemorialsWidgetEntryView : View {
+    @Environment(\.widgetFamily) private var widgetFamily
+    var entry: Provider.Entry
+    var body: some View {
+        if entry.todos?.count != 0 {
+            
+            switch widgetFamily {
+            case .systemSmall:
+                HStack(alignment: .center) {
+                    Text("오늘의 할일").font(.system(size: 13))
+                }
+                Divider()
+                VStack(alignment: .leading, spacing: 10){
+                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
+                        Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
+                        Divider()
+                    }
+                }
+            case .systemMedium:
+                HStack(alignment: .center) {
+                    Text("오늘의 할일").font(.system(size: 15))
+                }
+                Divider()
+                VStack(alignment: .leading, spacing: 10){
+                    ForEach(entry.todos!.prefix(5), id:\.id){ todo in
+                        Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
+                        Divider()
+                    }
+                }
+            case .systemLarge:
+                HStack(alignment: .center) {
+                    Text("오늘의 할일").font(.system(size: 15))
+                }
+                Divider()
+                VStack(alignment: .leading, spacing: 10){
+                    ForEach(entry.todos!.prefix(5), id:\.id){ todo in
+                        Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
+                        Divider()
+                    }
+                }
+            @unknown default:
+                HStack(alignment: .center) {
+                    Text("오늘의 할일").font(.system(size: 13))
+                }
+                Divider()
+                VStack(alignment: .leading, spacing: 10){
+                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
+                        Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
+                        Divider()
+                    }
+                }
+            }
+        } else {
+            
+            switch widgetFamily {
+            case .systemSmall:
+                EmptySmallWidgetView()
+            case .systemMedium:
+                EmptyMediumWidgetView()
+            case .systemLarge:
+                EmptyMediumWidgetView()
+            @unknown default:
+                EmptySmallWidgetView()
+            }
+            
+           
+        }
+    }
+}
 
 @main
 struct MemorialsWidget: Widget {
