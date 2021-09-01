@@ -17,9 +17,9 @@ struct Provider: TimelineProvider {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
         
         if todos?.count == 0 {
-           return MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date())
+           return MemorialsEntry(todos: nil, date: Date())
         } else {
-            return MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date())
+            return MemorialsEntry(todos: todos, date: Date())
         }
     }
 
@@ -28,9 +28,9 @@ struct Provider: TimelineProvider {
         let entry: MemorialsEntry!
         
         if todos?.count == 0 {
-            entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: Date())
+            entry = MemorialsEntry(todos: nil, date: Date())
         } else {
-            entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date())
+            entry = MemorialsEntry(todos: todos, date: Date())
         }
         completion(entry)
     }
@@ -46,9 +46,9 @@ struct Provider: TimelineProvider {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
             
             if todos?.count == 0 {
-                entry = MemorialsEntry(todos: nil, todoDataEmptyDescription: "오늘 해야할 Todo가 없습니다.", date: entryDate)
+                entry = MemorialsEntry(todos: nil, date: entryDate)
             } else {
-                entry = MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: entryDate)
+                entry = MemorialsEntry(todos: todos, date: entryDate)
             }
             entries.append(entry!)
         }
@@ -60,7 +60,6 @@ struct Provider: TimelineProvider {
 
 struct MemorialsEntry: TimelineEntry {
     let todos: [TodoEntity]?
-    let todoDataEmptyDescription: String?
     let date: Date
 }
 
@@ -171,7 +170,7 @@ struct MemorialsWidget_Previews: PreviewProvider {
     @State static var todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
     
     static var previews: some View {
-        MemorialsWidgetEntryView(entry: MemorialsEntry(todos: todos, todoDataEmptyDescription: nil, date: Date()))
+        MemorialsWidgetEntryView(entry: MemorialsEntry(todos: todos, date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
