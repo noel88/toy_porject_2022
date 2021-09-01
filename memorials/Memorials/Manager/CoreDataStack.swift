@@ -66,10 +66,6 @@ extension CoreDataStack {
     
     func getSeletedDateUncheckedTodos() -> [TodoEntity]? {
         var model : [TodoEntity] = []
-//
-//        dataController.persistentContainer.managedObjectModel
-//
-//        dataController.container.viewContext.refreshAllObjects()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
         let idSort: NSSortDescriptor = NSSortDescriptor(key: "priority", ascending: false)
         fetchRequest.sortDescriptors = [idSort]
@@ -82,12 +78,9 @@ extension CoreDataStack {
             if let todosArr = try persistentContainer.viewContext.fetch(fetchRequest) as? [Todo] {
                 print("TodosArr \(todosArr)")
                 let todos = todosArr.filter( {(todo: Todo) -> Bool in return ( todo.date == currentDateToString && todo.checked == false ) })
-//                var entity: TodoEntity
                 for i in 0 ..< todos.count {
                     model.append(TodoEntity(id: todos[i].id!, date: todos[i].date!, priority: todos[i].priority!, title: todos[i].title!, checked: todos[i].checked))
                 }
-                print("model \(model)")
-//                model = todos.
             }
         } catch let error as NSError {
                 print("Could not fetch🥺: \(error), \(error.userInfo)")
