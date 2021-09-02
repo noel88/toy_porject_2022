@@ -73,10 +73,8 @@ extension CoreDataStack {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         let currentDateToString = formatter.string(from: Date())
-        print("Todos")
         do {
             if let todosArr = try persistentContainer.viewContext.fetch(fetchRequest) as? [Todo] {
-                print("TodosArr \(todosArr)")
                 let todos = todosArr.filter( {(todo: Todo) -> Bool in return ( todo.date == currentDateToString && todo.checked == false ) })
                 for i in 0 ..< todos.count {
                     model.append(TodoEntity(id: todos[i].id!, date: todos[i].date!, priority: todos[i].priority!, title: todos[i].title!, checked: todos[i].checked))
