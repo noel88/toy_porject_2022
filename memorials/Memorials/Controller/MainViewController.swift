@@ -61,8 +61,26 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.setupCalendar()
         self.seletedDate = self.dateFormatter.string(from: Date())
+        if !hasAppLaunchedBefore() {
+            let newTodo1 = TodoViewModel(date: self.seletedDate!, priority: "1", title: "왼쪽 버튼을 누르면 할일이 완료됩니다.")
+            let newTodo2 = TodoViewModel(date: self.seletedDate!, priority: "1", title: "오른쪽을 스와이프하면 할일을 삭제합니다.")
+            let todoController = TodoViewController()
+            todoController.saveTodo(todo: newTodo1)
+            todoController.saveTodo(todo: newTodo2)
+        }
     }
 
+    func hasAppLaunchedBefore() -> Bool {
+      let defaults = UserDefaults.standard
+        if defaults.string(forKey: "hasAppLaunchedBefore") != nil {
+          return true
+      }
+      else{
+          defaults.set(true, forKey: "hasAppLaunchedBefore")
+          return false
+      }
+    }
+    
     func setupCheckbox(checkUI: Checkbox, checked: Bool) {
         checkUI.borderStyle = .square
         checkUI.checkmarkStyle = .tick
