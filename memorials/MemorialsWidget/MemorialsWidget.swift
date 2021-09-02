@@ -85,69 +85,68 @@ struct EmptyMediumWidgetView : View {
 struct MemorialsWidgetEntryView : View {
     @Environment(\.widgetFamily) private var widgetFamily
     var entry: Provider.Entry
+    
+    
+    func dateFormatter() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy.MM.dd"
+        return dateformatter.string(from: Date())
+    }
+    
     var body: some View {
-        if entry.todos?.count != 0 {
-            
+     
+        if entry.todos != nil {
+
             switch widgetFamily {
             case .systemSmall:
+                VStack(alignment: .center) {
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 15)).bold()
+                    Text("미완료 Todo").font(.system(size: 13))
+                    Text(verbatim: "\(entry.todos!.count)건").font(.system(size: 18))
+                }
+            case .systemMedium, .systemLarge:
                 HStack(alignment: .center) {
-                    Text("Todo").font(.system(size: 13))
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 16)).bold()
+                    Text(verbatim: "미완료 Todo \(entry.todos!.count)건").font(.system(size: 15))
                 }
-                Divider()
-                VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(2), id:\.id){ todo in
-                        Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
-                        Divider()
-                    }
-                }
-            case .systemMedium:
-                HStack(alignment: .center) {
-                    Text("Todo").font(.system(size: 15))
-                }
-                Divider()
-                VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(3), id:\.id){ todo in
-                        Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
-                        Divider()
-                    }
-                }
-            case .systemLarge:
-                HStack(alignment: .center) {
-                    Text("Todo").font(.system(size: 15))
+                VStack(alignment: .center, spacing: 10) {
+                    Text("미완료 Todo는 최대 3개까지 볼수 있습니다.").font(.system(size: 11))
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10){
                     ForEach(entry.todos!.prefix(3), id:\.id){ todo in
-                        Text(todo.title).font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
+                        Text(verbatim: "* \(todo.title)").font(.system(size: 12)).alignmentGuide(.leading) { _ in -20 }
                         Divider()
                     }
                 }
             @unknown default:
-                HStack(alignment: .center) {
-                    Text("Todo").font(.system(size: 13))
-                }
-                Divider()
-                VStack(alignment: .leading, spacing: 10){
-                    ForEach(entry.todos!.prefix(2), id:\.id){ todo in
-                        Text(todo.title).font(.system(size: 10)).alignmentGuide(.leading) { _ in -20 }
-                        Divider()
-                    }
+                VStack(alignment: .center) {
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 15)).bold()
+                    Text("미완료 Todo").font(.system(size: 13))
+                    Text(verbatim: "\(entry.todos!.count)건").font(.system(size: 18))
                 }
             }
         } else {
-            
             switch widgetFamily {
             case .systemSmall:
-                EmptySmallWidgetView()
-            case .systemMedium:
-                EmptyMediumWidgetView()
-            case .systemLarge:
-                EmptyMediumWidgetView()
+                VStack(alignment: .center) {
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 15)).bold()
+                    Text("미완료 Todo").font(.system(size: 13))
+                    Text("0건").font(.system(size: 18))
+                }
+            case .systemMedium, .systemLarge:
+                VStack(alignment: .center) {
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 18)).bold()
+                    Text("미완료 Todo").font(.system(size: 16))
+                    Text("0건").font(.system(size: 18))
+                }
             @unknown default:
-                EmptySmallWidgetView()
+                VStack(alignment: .center) {
+                    Text(verbatim: "\(dateFormatter())").font(.system(size: 15)).bold()
+                    Text("미완료 Todo").font(.system(size: 13))
+                    Text("0건").font(.system(size: 18))
+                }
             }
-            
-           
         }
     }
 }
