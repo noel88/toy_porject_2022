@@ -40,18 +40,15 @@ struct Provider: TimelineProvider {
         let todos = CoreDataStack.shared.getSeletedDateUncheckedTodos()
         var entry: MemorialsEntry?
         
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            
-            if todos?.count == 0 {
-                entry = MemorialsEntry(todos: nil, date: entryDate)
-            } else {
-                entry = MemorialsEntry(todos: todos, date: entryDate)
-            }
-            entries.append(entry!)
+        let entryDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
+        
+        if todos?.count == 0 {
+            entry = MemorialsEntry(todos: nil, date: entryDate)
+        } else {
+            entry = MemorialsEntry(todos: todos, date: entryDate)
         }
+        entries.append(entry!)
 
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
