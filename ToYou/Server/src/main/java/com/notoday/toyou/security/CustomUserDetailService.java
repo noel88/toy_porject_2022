@@ -12,15 +12,17 @@ import javax.transaction.Transactional;
 
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
+    private AccountRepository repository;
 
-    private final AccountRepository repository;
+    public CustomUserDetailService(AccountRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = repository.findByUsernameOrEmail(username, username)
+        Account account = repository.findByNameOrEmail(username, username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found with username or email : " + username));
         return UserPrincipal.create(account);
     }
