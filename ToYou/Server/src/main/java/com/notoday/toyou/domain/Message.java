@@ -1,9 +1,19 @@
 package com.notoday.toyou.domain;
 
+import lombok.*;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Message {
 
 
@@ -11,7 +21,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String to;
-    private String from;
+    private String toYou;
+    private String fromMe;
     private String description;
 }
