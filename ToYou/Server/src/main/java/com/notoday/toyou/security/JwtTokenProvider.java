@@ -1,7 +1,5 @@
 package com.notoday.toyou.security;
 
-
-import com.sun.security.auth.UserPrincipal;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
