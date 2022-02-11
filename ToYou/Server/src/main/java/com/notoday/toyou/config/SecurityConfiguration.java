@@ -24,12 +24,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
-@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailService customUserDetailService;
-    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    private CustomUserDetailService customUserDetailService;
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    public SecurityConfiguration(CustomUserDetailService customUserDetailService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+        this.customUserDetailService = customUserDetailService;
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -68,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/api")
+                    .antMatchers("/api/account/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated();
