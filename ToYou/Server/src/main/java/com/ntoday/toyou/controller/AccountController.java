@@ -39,7 +39,7 @@ public class AccountController {
      * @param registerAccount
      * @return Response
      */
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public Response signUp(@RequestBody RegisterAccount registerAccount) {
         AccountDto accountDto = requestRegisterAccountToDto(registerAccount);
         return Response.ok().setPayload(accountService.registerAccount(accountDto));
@@ -50,7 +50,7 @@ public class AccountController {
      * @param loginAccount
      * @return
      */
-    @PostMapping("/signin")
+    @PostMapping("/auth/signin")
     public Response signIn(@RequestBody LoginAccount loginAccount) {
         AccountDto accountDto = requestLoginAccountToDto(loginAccount);
 
