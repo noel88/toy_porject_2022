@@ -35,6 +35,7 @@ public class AccountController {
      */
     @PostMapping("/auth/signup")
     public Response signUp(@RequestBody RegisterAccount registerAccount) {
+        registerAccount.setPassword(passwordEncoder.encode(registerAccount.getPassword()));
         return Response.ok().setPayload(accountService.registerAccount(registerAccount));
     }
 
