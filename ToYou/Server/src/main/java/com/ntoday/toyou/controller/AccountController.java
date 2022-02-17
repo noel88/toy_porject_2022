@@ -70,7 +70,7 @@ public class AccountController {
     }
 
     /**
-     * 내 정보 확인
+     * 내 정보 확인 API
      * @param authToken
      * @return
      */
@@ -80,14 +80,23 @@ public class AccountController {
         return Response.ok().setPayload(accountService.getAccountToResponse(id));
     }
 
-    //내 정보 수정
+    /**
+     * 내 정보 업데이트 API
+     * @param accountRequest
+     * @return
+     */
     public Response updateMyAccount(AccountRequest accountRequest) {
         return Response.ok().setPayload(accountService.updateAccount(accountRequest));
     }
 
-    //탈퇴
-    public ResponseEntity removeAccount() {
-        return new ResponseEntity(HttpStatus.OK);
+    /**
+     * 탈퇴 API
+     * @param authToken
+     * @return
+     */
+    public Response removeAccount(String authToken) {
+        Long id = jwtTokenProvider.getUserFromJWT(authToken);
+        return Response.ok().setPayload(accountService.removeAccount(id));
     }
 
 

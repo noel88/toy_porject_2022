@@ -55,4 +55,15 @@ public class AccountService {
 
         return mapper.map(update, AccountResponse.class);
     }
+
+    public AccountResponse removeAccount(Long id) {
+        Account account = getAccount(id);
+        Account update = Account.builder()
+                .id(account.getId())
+                .remove(true)
+                .build();
+        accountRepository.save(update);
+
+        return mapper.map(update, AccountResponse.class);
+    }
 }
