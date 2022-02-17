@@ -24,19 +24,17 @@ public class AccountController {
 
     private final AccountService accountService;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
 
     /**
      * 회원가입 API
-     * @param registerAccount
+     * @param accountRequest
      * @return Response
      */
     @PostMapping("/auth/signup")
-    public Response signUp(@RequestBody RegisterAccount registerAccount) {
-        registerAccount.setPassword(passwordEncoder.encode(registerAccount.getPassword()));
-        return Response.ok().setPayload(accountService.registerAccount(registerAccount));
+    public Response signUp(@RequestBody AccountRequest accountRequest) {
+        return Response.ok().setPayload(accountService.registerAccount(accountRequest));
     }
 
     /**
@@ -79,12 +77,12 @@ public class AccountController {
     @GetMapping("/getAccount")
     public Response getMyAccount(String authToken) {
         Long id = jwtTokenProvider.getUserFromJWT(authToken);
-        return Response.ok().setPayload(accountService.getAccount(id));
+        return Response.ok().setPayload(accountService.getAccountToResponse(id));
     }
 
     //내 정보 수정
-    public ResponseEntity updateMyAccount() {
-        return new ResponseEntity(HttpStatus.OK);
+    public Response updateMyAccount(AccountRequest accountRequest) {
+        return Response.ok().setPayload(accountService.updateAccount(accountRequest));
     }
 
     //탈퇴
