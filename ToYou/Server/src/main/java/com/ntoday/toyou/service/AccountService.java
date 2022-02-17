@@ -1,11 +1,15 @@
 package com.ntoday.toyou.service;
 
 
-import com.ntoday.toyou.controller.dto.AccountDto;
+import com.ntoday.toyou.controller.request.RegisterAccount;
+import com.ntoday.toyou.controller.response.AccountResponse;
 import com.ntoday.toyou.domain.Account;
 import com.ntoday.toyou.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -17,10 +21,17 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public AccountDto registerAccount(AccountDto accountDto) {
-        Account account = mapper.map(accountDto, Account.class);
+    public AccountResponse registerAccount(RegisterAccount registerAccount) {
+        Account account = mapper.map(registerAccount, Account.class);
         Account saveAccount = accountRepository.save(account);
 
-        return mapper.map(saveAccount, AccountDto.class);
+        return mapper.map(saveAccount, AccountResponse.class);
+    }
+
+    public AccountResponse getAccount(Long id) {
+        Optional<Account> getAccount = accountRepository.findById(id);
+        Account account = getAccount.orElseThrow(() -> new UsernameNotFoundException("Not found id"));
+
+        return mapper.map(account, AccountResponse.class);
     }
 }

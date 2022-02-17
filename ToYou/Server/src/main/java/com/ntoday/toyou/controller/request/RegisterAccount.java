@@ -1,21 +1,18 @@
-package com.ntoday.toyou.controller.dto;
+package com.ntoday.toyou.controller.request;
 
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.Objects;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
-public class AccountDto {
+public class RegisterAccount {
 
     private String name;
     private String email;
     private String password;
-
 
 
     public void nonNullCheck() {

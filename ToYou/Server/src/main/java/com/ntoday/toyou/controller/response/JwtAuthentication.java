@@ -1,4 +1,4 @@
-package com.ntoday.toyou.controller.dto.response;
+package com.ntoday.toyou.controller.response;
 
 import lombok.Getter;
 import lombok.Setter;

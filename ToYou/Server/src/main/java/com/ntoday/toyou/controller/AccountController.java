@@ -41,8 +41,7 @@ public class AccountController {
      */
     @PostMapping("/auth/signup")
     public Response signUp(@RequestBody RegisterAccount registerAccount) {
-        AccountDto accountDto = requestRegisterAccountToDto(registerAccount);
-        return Response.ok().setPayload(accountService.registerAccount(accountDto));
+        return Response.ok().setPayload(accountService.registerAccount(registerAccount));
     }
 
     /**
@@ -52,12 +51,11 @@ public class AccountController {
      */
     @PostMapping("/auth/signin")
     public Response signIn(@RequestBody LoginAccount loginAccount) {
-        AccountDto accountDto = requestLoginAccountToDto(loginAccount);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        accountDto.getEmail(),
-                        accountDto.getPassword()
+                        loginAccount.getEmail(),
+                        loginAccount.getPassword()
                 )
         );
 
