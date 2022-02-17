@@ -60,27 +60,26 @@ public class AccountController {
         return Response.ok().setPayload(new JwtAuthentication(jwt));
     }
 
-    private AccountDto requestRegisterAccountToDto(RegisterAccount registerAccount) {
-        registerAccount.nonNullCheck();
-        String encodePassword = passwordEncoder.encode(registerAccount.getPassword());
-        registerAccount.setPassword(encodePassword);
-        return mapper.map(registerAccount, AccountDto.class);
+    //TODO: 로그아웃을 어떻게 처리할 것인지 고민해봐야 함.
+    /**
+     * 로그아웃 API
+     * @param authToken
+     * @return
+     */
+    @GetMapping("/signout")
+    public Response signOut(String authToken) {
+        return jwtTokenProvider.validateToken(authToken) ? Response.ok() : Response.accessDenied();
     }
 
-    private AccountDto requestLoginAccountToDto(LoginAccount loginAccount) {
-        loginAccount.nonNullCheck();
-        return mapper.map(loginAccount, AccountDto.class);
-    }
-
-    //로그아웃
-    public ResponseEntity signOut() {
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-
-    //내정보 확인
-    public ResponseEntity getMyAccount() {
-        return new ResponseEntity(HttpStatus.OK);
+    /**
+     * 내 정보 확인
+     * @param authToken
+     * @return
+     */
+    @GetMapping("/getAccount")
+    public Response getMyAccount(String authToken) {
+        Long id = jwtTokenProvider.getUserFromJWT(authToken);
+        return Response.ok().setPayload(accountService.getAccount(id));
     }
 
     //내 정보 수정
