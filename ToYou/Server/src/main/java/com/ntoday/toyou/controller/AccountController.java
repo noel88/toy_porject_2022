@@ -1,15 +1,13 @@
 package com.ntoday.toyou.controller;
 
 
-import com.ntoday.toyou.controller.dto.AccountDto;
-import com.ntoday.toyou.controller.dto.request.LoginAccount;
-import com.ntoday.toyou.controller.dto.request.RegisterAccount;
-import com.ntoday.toyou.controller.dto.response.JwtAuthentication;
+import com.ntoday.toyou.controller.request.LoginAccount;
+import com.ntoday.toyou.controller.request.RegisterAccount;
+import com.ntoday.toyou.controller.response.JwtAuthentication;
 import com.ntoday.toyou.security.JwtTokenProvider;
 import com.ntoday.toyou.service.AccountService;
 import com.ntoday.toyou.util.Response;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,17 +15,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/account")
 public class AccountController {
 
-    private final ModelMapper mapper = new ModelMapper();
     private final AccountService accountService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
