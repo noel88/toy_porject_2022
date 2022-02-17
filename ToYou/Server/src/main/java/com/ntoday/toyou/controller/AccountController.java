@@ -2,7 +2,7 @@ package com.ntoday.toyou.controller;
 
 
 import com.ntoday.toyou.controller.request.LoginAccount;
-import com.ntoday.toyou.controller.request.RegisterAccount;
+import com.ntoday.toyou.controller.request.AccountRequest;
 import com.ntoday.toyou.controller.response.JwtAuthentication;
 import com.ntoday.toyou.security.JwtTokenProvider;
 import com.ntoday.toyou.service.AccountService;
