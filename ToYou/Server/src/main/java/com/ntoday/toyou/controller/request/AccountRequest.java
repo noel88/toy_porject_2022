@@ -8,8 +8,9 @@ import java.util.Objects;
 
 @Data
 @Builder
-public class RegisterAccount {
+public class AccountRequest {
 
+    private Long id;
     private String name;
     private String email;
     private String password;
