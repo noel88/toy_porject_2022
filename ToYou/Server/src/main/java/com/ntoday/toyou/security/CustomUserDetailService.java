@@ -21,8 +21,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = repository.findByNameOrEmail(username, username)
-                .orElseThrow(()-> new UsernameNotFoundException("User not found with username or email : " + username));
+        Account account = repository.findByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found with email : " + username));
         return UserPrincipal.create(account);
     }
 
@@ -31,6 +31,6 @@ public class CustomUserDetailService implements UserDetailsService {
         Account account = repository.findById(id).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with id : " + id));
         return UserPrincipal.create(account);
-
     }
+
 }
